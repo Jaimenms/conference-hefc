@@ -1,0 +1,21 @@
+pytest
+python-decouple
+scipy
+numpy
+fluids
+ipython[notebook]
+graphviz
+jupyter
+matplotlib
+lmfit
+jupyter_contrib_nbextensions
+pyqt5
+lxml
+pandas
+h5py
+openpyxl
+pytest
+iapws == 1.3
+vtk
+menpo
+#mayavi
