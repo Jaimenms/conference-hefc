@@ -76,6 +76,9 @@ class Sink(Node):
         eq = self.CreateEquation("NEB_nodal_energy_balance_2")
         eq.Residual = residual_aux
 
+    def eq_momentum_balance(self):
+
+        pass
 
     def DeclareEquations(self):
         """
@@ -87,3 +90,4 @@ class Sink(Node):
 
         self.eq_mass_balance()
         self.eq_energy_balance()
+        self.eq_momentum_balance()

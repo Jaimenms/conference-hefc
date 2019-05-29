@@ -14,7 +14,7 @@
                 "z": 0.0,
                 "A": -0.18652745180424443,
                 "B": 0,
-                "C": 276935.23315684183
+                "C": 276934.99129288713
             },
             "initial_guess": {
                 "w": 561.1141163550946,
@@ -2476,7 +2476,7 @@
     "simulation_parameters": {
         "reporting_interval": 1.0,
         "time_horizon": 1825,
-        "relative_tolerance": 1e-06,
+        "relative_tolerance": 0.01,
         "MaxStep": 1,
         "MaxNumSteps": 1000000000
     }

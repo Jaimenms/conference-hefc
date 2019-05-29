@@ -36,7 +36,7 @@ class Carbfilm(daeModelExtended):
         self.rhof = Constant(2.71e3 * (kg ** (1)) * (m ** (-3))) # Film density
         self.psi = Constant(0.01)  # Deposition strength factor
         self.conc_H = Constant(10 ** (-9.55)) #Concentration of Hydrogen cation
-        self.conc_Ca = Constant(0.0037) #Calcium concentration
+        self.conc_Ca = Constant(0.0037/3) #Calcium concentration
         self.pCO2 = Constant(0.0314 / 100) #CO2 partial pressure
 
     def define_variables(self):

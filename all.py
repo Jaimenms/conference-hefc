@@ -26,17 +26,17 @@ import os.path
 # All cases considered in thi publication
 cases = [
 
-    {'input': "cases/3/scenario_shortterm/model_simplified/bc_pump/preparation.json"},
+    #{'input': "cases/3/scenario_shortterm/model_simplified/bc_pump/preparation.json"},
 
     {'input': "cases/3/scenario_shortterm/model_complete/bc_wfixed/preparation.json"},
 
     {'input': "cases/3/scenario_shortterm/model_complete/bc_pump/preparation.json"},
 
-    {'input': "cases/3/scenario_shortterm/model_simplified/bc_pump/simulation.json",
-     "initial_condition": "cases/3/scenario_shortterm/model_simplified/bc_pump/preparation.output.json"},
+    #{'input': "cases/3/scenario_shortterm/model_simplified/bc_pump/simulation.json",
+    # "initial_condition": "cases/3/scenario_shortterm/model_simplified/bc_pump/preparation.output.json"},
 
-    {'input': "cases/3/scenario_shortterm/model_complete/bc_wfixed/simulation.json",
-     "initial_condition": "cases/3/scenario_shortterm/model_complete/bc_wfixed/preparation.output.json"},
+    #{'input': "cases/3/scenario_shortterm/model_complete/bc_wfixed/simulation.json",
+    # "initial_condition": "cases/3/scenario_shortterm/model_complete/bc_wfixed/preparation.output.json"},
 
     {'input': "cases/3/scenario_shortterm/model_complete/bc_pump/simulation.json",
      "initial_condition": "cases/3/scenario_shortterm/model_complete/bc_pump/preparation.output.json"},

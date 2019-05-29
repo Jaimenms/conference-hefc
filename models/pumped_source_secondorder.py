@@ -42,7 +42,7 @@ class PumpedSource(Source):
         self.C = daeParameter("C", Pa, self, "Pump coefficient C")
 
 
-    def eq_pump(self):
+    def eq_momentum_balance(self):
         """
         This method writes the pump curve
         :return:
@@ -60,4 +60,3 @@ class PumpedSource(Source):
         """
 
         Source.DeclareEquations(self)
-        self.eq_pump()

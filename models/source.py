@@ -39,16 +39,18 @@ class Source(Node):
         :return:
         """
 
+        print("--------"+self.Name)
         # Starting with the external mass flow rate
         residual_aux = self.w()
 
-
         # Mass to the node inlet
         for edge_name in self.get_inlet():
+            print("INLET: "+edge_name)
             residual_aux += self.Parent.submodels[edge_name].kub()
 
         # Mass to the node outlet
         for edge_name in self.get_outlet():
+            print("OUTLET: "+edge_name)
             residual_aux -= self.Parent.submodels[edge_name].klb()
 
         # Instantiate equation NMB
@@ -77,6 +79,10 @@ class Source(Node):
         eq.Residual = residual_aux
 
 
+    def eq_momentum_balance(self):
+
+        pass
+
     def DeclareEquations(self):
         """
         This Method is called by the DaeTools. Here is where all the equations are defined
@@ -84,6 +90,6 @@ class Source(Node):
         """
 
         Node.DeclareEquations(self)
-
         self.eq_mass_balance()
         self.eq_energy_balance()
+        self.eq_momentum_balance()

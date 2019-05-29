@@ -42,16 +42,16 @@ class PumpedSource(Source):
         self.w0 = daeParameter("w0", kg/s, self, "Pump flowrate at reference")
 
 
-    def eq_pump(self):
+    def eq_momentum_balance(self):
         """
         This method writes the pump curve
         :return:
         """
 
+        print("Pump equation!!!!!!!!!!")
         # Instantiate equation
         eq = self.CreateEquation("pump_equation")
         eq.Residual = self.P() - self.a() * self.w() - (self.P0() - self.a() * self.w0())
-
 
     def DeclareEquations(self):
         """
@@ -60,4 +60,3 @@ class PumpedSource(Source):
         """
 
         Source.DeclareEquations(self)
-        self.eq_pump()

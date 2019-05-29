@@ -64,6 +64,8 @@ def get_node_tree(name, data, node_tree=dict()):
     :return:
     """
 
+    print(name)
+
     # It it is an edge (in this case the data dictionary of an edge constains the connectivity by the elements from
     # and to)
     if 'kind' in data and data['kind'] == 'edge':
@@ -86,6 +88,7 @@ def get_node_tree(name, data, node_tree=dict()):
     if 'submodels' in data:
 
         for submodel_name, datai in data['submodels'].items():
+            print("SUBMODEL" + submodel_name)
 
             node_tree = get_node_tree(submodel_name, datai, node_tree=node_tree)
 

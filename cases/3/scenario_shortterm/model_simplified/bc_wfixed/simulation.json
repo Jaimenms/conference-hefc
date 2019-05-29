@@ -431,7 +431,7 @@
     "simulation_parameters": {
         "reporting_interval": 1.0,
         "time_horizon": 1825,
-        "relative_tolerance": 1e-06,
+        "relative_tolerance": 0.01,
         "MaxStep": 1,
         "MaxNumSteps": 1000000000
     }
