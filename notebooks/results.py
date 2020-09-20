@@ -183,7 +183,7 @@ def prepare_data_1(dict_dynamic, case1, case2, tlim=2*365):
          },
         {
          'variable': 'condenser.Rf',
-         'y_label': 'Fouling resistance (10$^{-3}$ m$^2$K/W)', 'leg_position': 'best', 'ylim': None,
+         'y_label': 'Fouling resistance (10$^{-3}$ m$^2$K/W)', 'leg_position': 'best', 'ylim': [0.,0.225],
          't1': t1[t1 <= tlim],
          't2': t2[t2 <= tlim],
          'x1': dict_dynamic[case1]['condenser.Rf']['Values'][:, -1, 0][t1 <= tlim] * 1e3,
@@ -194,7 +194,7 @@ def prepare_data_1(dict_dynamic, case1, case2, tlim=2*365):
          },
         {
          'variable': 'condenser.Rf',
-         'y_label': 'Fouling resistance (10$^{-3}$ m$^2$K/W)', 'leg_position': 'best', 'ylim': None,
+         'y_label': 'Fouling resistance (10$^{-3}$ m$^2$K/W)', 'leg_position': 'best', 'ylim': [0.,0.225],
          't1': t1[t1 <= tlim],
          't2': t2[t2 <= tlim],
          'x1': dict_dynamic[case1]['condenser.Rf']['Values'][:, -1, -1][t1 <= tlim] * 1e3,
@@ -387,7 +387,11 @@ def plot_curves_1(plot_dict, with_legend=True, scenario='short-term'):
 
         ax.set_xlabel('Time (days)')
         ax.set_ylabel(plot_dict_i['y_label'])
-        ax.autoscale(enable=True, axis='both', tight=None)
+        #ax.autoscale(enable=True, axis='both', tight=None)
+
+        if plot_dict_i['ylim']:
+            ax.set_ylim(plot_dict_i['ylim'][0], plot_dict_i['ylim'][1])
+
 
         if with_legend:
             plt.legend(frameon=False, loc=plot_dict_i['leg_position'], ncol=1, handlelength=4, numpoints=1)
