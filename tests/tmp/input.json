@@ -34,8 +34,8 @@
         },
         "pipe_1": {
             "kind": "edge",
-            "module": "models.carbfilmed_pipe",
-            "class": "CarbfilmedPipe",
+            "module": "models.pipe",
+            "class": "Pipe",
             "from": "node_A",
             "to": "node_B",
             "domains": {
@@ -45,15 +45,8 @@
                     "N": 10
                 }
             },
-            "constants": {
-                "lagt": 1
-            },
             "states": {},
             "parameters": {
-                "conc_H": 1e-07,
-                "conc_Ca": 9.55,
-                "pCO2": 31.81605,
-                "mfi": 1e-09,
                 "Di": 0.35559999999999997,
                 "tetha": 0.0,
                 "L": 50.0,
@@ -64,10 +57,6 @@
             },
             "specifications": {},
             "initial_guess": {
-                "mf": 1e-09,
-                "phid": 0.0,
-                "phir": 0.0,
-                "Rf": 0.0,
                 "ep": 4.5e-05,
                 "Re": 941310.0900539967,
                 "D": 0.35559999999999997,

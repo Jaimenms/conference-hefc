@@ -3,21 +3,20 @@ DaetTools model that describes the behavior of a water flowing in a pipe with th
 """
 
 from daetools.pyDAE import *
-from daetools_extended.daemodel_extended import daeModelExtended
 
 from pyUnits import m, kg, s, K, Pa, J, W, rad
 
-from water_properties import density, viscosity, conductivity, heat_capacity
 from daetools_extended.tools import daeVariable_wrapper, distribute_on_domains
 
+from water_properties import density, viscosity, conductivity, heat_capacity
 from water_at_saturation_properties import saturation_temperature, vapour_density, vapour_total_compressibility,vaporization_enthalpy
 
 
-class ExternalFilmCondensation(daeModelExtended):
+class ExternalFilmCondensation(daeModel):
 
     def __init__(self, Name, Parent=None, Description="", data={}, node_tree={}):
 
-        daeModelExtended.__init__(self, Name, Parent=Parent, Description=Description, data=data, node_tree=node_tree)
+        daeModel.__init__(self, Name, Parent=Parent, Description=Description)
 
 
     def define_parameters(self):
@@ -30,6 +29,8 @@ class ExternalFilmCondensation(daeModelExtended):
         self.PextH = daeParameter("PextH", Pa, self, "External High Pressure")
         self.fNtub = daeParameter("fNtub", unit(), self, "Factor for number of pipes over the actual pipe, including it", self.YDomains)
         self.kvap = daeParameter("kvap", kg/s, self, "Vapour Inlet Flowrate")
+        self.ResF = daeParameter("ResF", (K ** (1))*(W ** (-1)), self, "Fouling Resistance")
+
 
 
     def define_variables(self):
@@ -54,6 +55,7 @@ class ExternalFilmCondensation(daeModelExtended):
 
         self.kcond = daeVariable("kcond", flowrate_t, self, "Condensate Outlet Flowrate")
         self.wext = daeVariable("wext", flowrate_t, self, "Vapour Outlet Flowrate")
+        #self.Resistance = daeVariable("Resistance", thermal_resistance_t, self, "Overall Thermal Resistance", self.Domains)
 
 
     def eq_calculate_kcond(self):
@@ -104,7 +106,6 @@ class ExternalFilmCondensation(daeModelExtended):
         #                  triggerEvents=[],
         #                  userDefinedActions=[])
 
-
         self.END_STN()
 
 
@@ -132,36 +133,19 @@ class ExternalFilmCondensation(daeModelExtended):
                                                       userDefinedActions = [] )
 
         self.STATE("Variable")
-
         eq = self.CreateEquation("ExternalPressure", "ExternalPressure")
         Pext = self.Pext()
         Vext = self.Vext()
         kcond = self.kcond()
         kvap = self.kvap()
         wext = self.wext()
-
         Past = Pext / Constant(1 * Pa)
         drhodPshell = vapour_total_compressibility(Past) * Constant(1 * kg * (m**-3) * (Pa**-1) )
         eq.Residual =  self.dt_day(Pext)* (Vext * drhodPshell) - (kvap - wext - kcond)
 
-
-        #self.ON_CONDITION(Time() > Constant(400000*s), switchToStates     = [ ('ShellPressure', 'Constant') ],
-        #                                              setVariableValues  = [],
-        #                                              triggerEvents      = [],
-        #                                              userDefinedActions = [] )
-
         self.STATE("Constant")
-
         eq = self.CreateEquation("ExternalPressure", "ExternalPressure")
-        Pext = self.Pext()
-        Vext = self.Vext()
-        kcond = self.kcond()
-        kvap = self.kvap()
-        wext = self.wext()
-
-        Past = Pext / Constant(1 * Pa)
-        eq.Residual =  Pext - Constant(25600 * Pa)
-
+        eq.Residual =  Pext - self.PextSP()
 
 
         self.END_STN()
@@ -181,15 +165,13 @@ class ExternalFilmCondensation(daeModelExtended):
 
         T = daeVariable_wrapper(self.T, domains)
         P = daeVariable_wrapper(self.P, domains)
-        Ti = daeVariable_wrapper(self.Ti, domains)
         fD = daeVariable_wrapper(self.fD, domains)
         Re = daeVariable_wrapper(self.Re, domains)
         hint = daeVariable_wrapper(self.hint, domains)
         D = daeVariable_wrapper(self.D, domains)
 
         # Calculates the Nussel dimensionless number using Petukhov correlation modified by Gnielinski. See Incropera 4th Edition [8.63]
-        Tm = 0.5 * (T + Ti)
-        Tast = Tm / Constant(1 * K)
+        Tast = T / Constant(1 * K)
         Past = P / Constant(1 * Pa)
 
         mu = viscosity( Tast, Past, simplified = True)
@@ -219,11 +201,8 @@ class ExternalFilmCondensation(daeModelExtended):
         hext = daeVariable_wrapper(self.hext, domains)
         fNtub = daeVariable_wrapper(self.fNtub, ydomains)
 
-        Tf = 0.5 * (Text + To)
-        Pf = self.Pext()
-
-        Tast = Tf / Constant(1 * K)
-        Past = Pf / Constant(1 * Pa)
+        Tast = 0.5 * (Text + To) / Constant(1 * K)
+        Past = self.Pext() / Constant(1 * Pa)
 
         hvap = vaporization_enthalpy(Past, simplified = True) * Constant(1 * J * (kg**-1) )
 
@@ -249,20 +228,17 @@ class ExternalFilmCondensation(daeModelExtended):
         Text = self.Text()
         T = daeVariable_wrapper(self.T, domains)
         Qout = daeVariable_wrapper(self.Qout, domains)
-        hext = daeVariable_wrapper(self.hext, domains)
         hint = daeVariable_wrapper(self.hint, domains)
+        hext = daeVariable_wrapper(self.hext, domains)
         D = daeVariable_wrapper(self.D, domains)
+        Resint = 1 / (self.pi * self.Di() * hint)
+        Reswall = Log(self.Do() / self.Di()) / (2 * self.pi * self.kwall())
+        Resext = 1 / (self.pi * self.Do() * hext)
+        ResFouling = self.ResF() * self.L() # Jaime - Corrigido!
 
-        kwall = self.kwall()
-        Do = self.Do()
-        Di = self.Di()
-        pi = self.pi
+        Resistance = (Resint + Reswall + Resext + ResFouling)
 
-        Resext = 1 / (pi * Do * hext)
-        Resint = 1 / (pi * D * hint)
-        Reswall = Log(Do / Di) / (2 * pi * kwall)
-
-        eq.Residual = Qout * (Resint + Reswall + Resext) - (Text - T )
+        eq.Residual = Qout * Resistance - (Text - T )
 
 
     def eq_calculate_To(self):
@@ -300,7 +276,7 @@ class ExternalFilmCondensation(daeModelExtended):
 
     def DeclareEquations(self):
 
-        daeModelExtended.DeclareEquations(self)
+        daeModel.DeclareEquations(self)
 
         self.eq_calculate_Pext()
         self.eq_calculate_Text()

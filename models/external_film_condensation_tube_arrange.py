@@ -10,7 +10,7 @@ from models.external_film_condensation import ExternalFilmCondensation
 class ExternalFilmCondensationTubeArrange(ExternalFilmCondensation, TubeArrange):
 
     def __init__(self, Name, Parent=None, Description="", data={}, node_tree={}):
-        TubeArrange.__init__(self, Name, Parent=Parent, Description=Description, data=data, node_tree=node_tree)
+        TubeArrange.__init__(self, Name, Parent=Parent, Description=Description)
 
 
     def define_parameters(self):

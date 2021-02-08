@@ -6,6 +6,7 @@ Extra tools for the daemode_extended module.
 
 import numpy as np
 import importlib
+import json
 from copy import copy
 
 
@@ -64,7 +65,6 @@ def get_node_tree(name, data, node_tree=dict()):
     :return:
     """
 
-    print(name)
 
     # It it is an edge (in this case the data dictionary of an edge constains the connectivity by the elements from
     # and to)
@@ -84,11 +84,15 @@ def get_node_tree(name, data, node_tree=dict()):
             node_tree[node_to] = {'outlet': [],'inlet': []}
         node_tree[node_to]['inlet'].append(edge_name)
 
+    elif 'kind' in data and data['kind'] == 'simple':
+
+        node_tree[name] = {}
+
     # Recursively search accross the submodels
     if 'submodels' in data:
 
         for submodel_name, datai in data['submodels'].items():
-            print("SUBMODEL" + submodel_name)
+            print("SUBMODEL: " + submodel_name)
 
             node_tree = get_node_tree(submodel_name, datai, node_tree=node_tree)
 
@@ -205,3 +209,19 @@ def distribute_on_domains(domains, eq, eKind):
         return domains_list
     else:
         return eq.DistributeOnDomain(domains, eKind)
+
+
+def merge_initial_condition(args, data):
+
+    if 'initial_condition' in args:
+        json_data = open(args['initial_condition']).read()
+        previous_output = json.loads(json_data)
+        for model_name, data_i in data.items():
+            if 'initial_guess' in data_i:
+                for var_name in data_i['initial_guess'].keys():
+                    var_fullname = "{0}.{1}".format(model_name, var_name)
+                    if var_fullname in previous_output:
+                        if "Values" in previous_output[var_fullname]:
+                            data_i['initial_guess'][var_name] = previous_output[var_fullname]["Values"][-1]
+
+    return data

@@ -3,33 +3,39 @@ from iapws._iapws import _ThCond, _Viscosity
 import numpy as np
 import inspect
 
-def simple_model_parameters():
 
-    c_dict = {
-        'conductivity': np.array([ 6.20940155e-01,  1.90022194e-06, -2.45476728e-11,  1.12611502e-16]),
-        'density': np.array([ 9.96906358e+02, -8.11519963e-04,  7.28615211e-09, -3.02080951e-14]),
-        'enthalpy': np.array([ 1.31488947e+05,  7.28807358e+00, -7.84449119e-05,  3.44521411e-10]),
-        'heat_capacity': np.array([ 4.17429701e+03,  4.31727962e-04,  7.44863129e-10, -8.92950974e-15]),
-        'saturation_temperature': np.array([ 3.04528132e+02,  1.74387838e-03, -1.88042391e-08,  8.25850104e-14]),
-        'vapour_density': np.array([ 4.62513512e-03,  6.47401547e-06, -9.47682219e-12,  3.32572527e-17]),
-        'vapour_total_compressibility': np.array([ 6.47401547e-06, -1.89536444e-11,  9.97717582e-17]),
-        'viscosity': np.array([ 6.97318785e-04, -1.47128076e-08,  1.98579652e-13, -9.38312502e-19]),
-        'vaporization_enthalpy': np.array([2.42706159e+06, -4.20868251e+00, 4.44518182e-05, -1.94852702e-10]),
-    }
+c_dict = {'conductivity': np.array([3.20875162e-01, -6.91454761e-07, 6.24672812e-12, -2.71195484e-17,
+                                    2.96320329e-02, 5.13558596e+00]),
+          'density': np.array([1.01836874e+03, -6.74336724e-04, 6.06149751e-09, -2.58678900e-14,
+                               -2.25901488e+00, 1.82321986e+00]),
+          'enthalpy': np.array([-6.08505954e+05, 1.94062497e+00, -1.68186492e-05, 7.06340277e-11,
+                                6.43850329e+04, 1.88345119e+01]),
+          'heat_capacity': np.array([4.22512004e+03, 1.88493270e-03, -1.78694338e-08, 7.96209770e-14,
+                                     -1.44442248e+01, 8.41137683e-03]),
+          'saturation_temperature': np.array([2.48404503e+02, 4.67253143e-04, -4.09934326e-09, 1.72548088e-14,
+                                              1.53833719e+01, 7.37059350e-03]),
+          'vaporization_enthalpy': np.array([2.96216663e+06, -1.20540634e+00, 9.85003104e-06, -4.10994887e-11,
+                                             -3.61781700e+04, 5.09057715e+02]),
+          'vapour_density': np.array([2.37652486e-03, 6.65298567e-06, -1.31408942e-11, 5.49191279e-17]),
+          'vapour_total_compressibility': np.array([6.65298567e-06, -2.62817883e-11, 1.64757384e-16]),
+          'viscosity': np.array([5.17865934e-03, 2.55434669e-08, -3.01011890e-13, 1.39267038e-18,
+                                 -4.25522968e-04, 8.56155473e+00])}
 
-    return c_dict
 
+def simplified_model(x,c=None):
 
-def simplified_model(x,):
-
-    c_dict = simple_model_parameters()
-
-    c = c_dict[inspect.stack()[1][3]]
+    if c is None:
+        c = c_dict[inspect.stack()[1][3]]
 
     f = 0.
 
-    for i in range(c.shape[0]):
-        f += c[i] * (x ** i)
+    if c.shape[0] == 4:
+        for i in range(c.shape[0]):
+            f += c[i] * (x ** i)
+    else:
+        for i in range(c.shape[0] - 2):
+            f += c[i] * (x ** i)
+        f += c[-2] * np.log(c[-1] * x)
 
     return f
 
@@ -47,12 +53,11 @@ def vapour_total_compressibility(P):
     return simplified_model(P)
 
 
-
 def vaporization_enthalpy(P, simplified = False):
 
     if simplified:
 
-        return simplified_model(P)
+        return simplified_model(P, c=c_dict['vaporization_enthalpy'])
 
 
     T = calculate_saturation_temperature(P)
@@ -69,7 +74,7 @@ def density(P, simplified = False):
 
     if simplified:
 
-        return simplified_model(P)
+        return simplified_model(P, c=c_dict['density'])
 
 
     T = calculate_saturation_temperature(P)
@@ -88,7 +93,7 @@ def vapour_density(P, simplified = False):
 
     if simplified:
 
-        return simplified_model(P)
+        return simplified_model(P, c=c_dict['vapour_density'])
 
 
     T = calculate_saturation_temperature(P)
@@ -107,7 +112,7 @@ def enthalpy(P, simplified = False):
 
     if simplified:
 
-        return simplified_model(P)
+        return simplified_model(P, c=c_dict['enthalpy'])
 
     T = calculate_saturation_temperature(P)
 
@@ -122,7 +127,7 @@ def enthalpy_vapour(P, simplified = False):
 
     if simplified:
 
-        return simplified_model(P)
+        return simplified_model(P, c=c_dict['enthalpy_vapour'])
 
     T = calculate_saturation_temperature(P)
 
@@ -137,7 +142,7 @@ def heat_capacity(P, simplified = False):
 
     if simplified:
 
-        return simplified_model(P)
+        return simplified_model(P, c=c_dict['heat_capacity'])
 
     T = calculate_saturation_temperature(P)
 
@@ -153,7 +158,7 @@ def conductivity(P, simplified = False):
 
     if simplified:
 
-        return simplified_model(P)
+        return simplified_model(P, c=c_dict['conductivity'])
 
     T = calculate_saturation_temperature(P)
 
@@ -171,7 +176,7 @@ def viscosity(P, simplified = False):
 
     if simplified:
 
-        return simplified_model(P)
+        return simplified_model(P, c=c_dict['viscosity'])
 
     T = calculate_saturation_temperature(P)
 
@@ -189,6 +194,6 @@ def saturation_temperature(P, simplified = False):
 
     if simplified:
 
-        return simplified_model(P)
+        return simplified_model(P, c=c_dict['saturation_temperature'])
 
     return calculate_saturation_temperature(P)

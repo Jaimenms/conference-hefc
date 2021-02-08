@@ -8,19 +8,19 @@ from daetools_extended.daemodel_extended import daeModelExtended
 from pyUnits import m, kg, s, K, Pa, J, W, rad
 
 from water_properties import density, viscosity, conductivity, heat_capacity
-
+from daetools_extended.tools import daeVariable_wrapper, distribute_on_domains
 
 class FixedExternalTemperature(daeModelExtended):
 
-    def __init__(self, Name, Parent=None, Description="", data={}, node_tree={}):
+    def __init__(self, Name, Parent=None, Description=""):
 
-        daeModelExtended.__init__(self, Name, Parent=Parent, Description=Description, data=data, node_tree=node_tree)
+        daeModel.__init__(self, Name, Parent=Parent, Description=Description)
 
     def define_parameters(self):
 
         self.Do = daeParameter("Do", m, self, "Outside pipe diameter")
         self.kwall = daeParameter("kwall", (K ** (-1))*(J ** (1))*(s ** (-1))*(m ** (-1)), self, "Wall conductivity")
-        self.Text = daeParameter("Text", K, self, "External Temperature")
+        self.ResF = daeParameter("ResF", (K ** (1))*(W ** (-1)), self, "Fouling Resistance")
 
 
     def define_variables(self):
@@ -34,75 +34,88 @@ class FixedExternalTemperature(daeModelExtended):
                                                       (K ** (-1)) * (W ** (1)) * (m ** (-2)), 0.01,
                                                       1000000, 10000, 1e-01)
 
-        self.To = daeVariable("To", water_temperature_t, self, "Outside Wall Temperature", [self.x, ])
+        self.To = daeVariable("To", water_temperature_t, self, "Outside Wall Temperature", self.Domains)
 
-        self.Ti = daeVariable("Ti", water_temperature_t, self, "Internal Wall Temperature", [self.x, ])
+        self.Ti = daeVariable("Ti", water_temperature_t, self, "Internal Wall Temperature", self.Domains)
 
-        self.hint = daeVariable("hint", heat_transfer_coefficient_t, self, "Internal convection coefficient", [self.x, ])
+        self.hint = daeVariable("hint", heat_transfer_coefficient_t, self, "Internal convection coefficient", self.Domains)
 
-        self.Resistance = daeVariable("Resistance", thermal_resistance_t, self, "Overall Thermal Resistance", [self.x, ])
+        #self.Resistance = daeVariable("Resistance", thermal_resistance_t, self, "Overall Thermal Resistance", self.Domains)
 
 
     def eq_calculate_hint(self):
 
         eq = self.CreateEquation("InternalConvection", "Internal convection - hint")
-        x = eq.DistributeOnDomain(self.x, eClosedClosed)
+        domains = distribute_on_domains(self.Domains, eq, eClosedClosed)
+
+        T = daeVariable_wrapper(self.T, domains)
+        P = daeVariable_wrapper(self.P, domains)
+        Ti = daeVariable_wrapper(self.Ti, domains)
+        fD = daeVariable_wrapper(self.fD, domains)
+        Re = daeVariable_wrapper(self.Re, domains)
+        hint = daeVariable_wrapper(self.hint, domains)
+        D = daeVariable_wrapper(self.D, domains)
+
 
         # Calculates the Nussel dimensionless number using Petukhov correlation modified by Gnielinski. See Incropera 4th Edition [8.63]
-
-        Tm = 0.5 * self.T(x) + 0.5 * self.Ti(x)
-
-        rho = density( Tm / Constant(1 * K), self.P(x) / Constant(1 * Pa), simplified = True)
-        mu = viscosity( Tm / Constant(1 * K) , self.P(x) / Constant(1 * Pa), simplified = True)
-        kappa = conductivity( Tm / Constant(1 * K), self.P(x) / Constant(1 * Pa), simplified = True)
-        cp = heat_capacity( Tm / Constant(1 * K), self.P(x) / Constant(1 * Pa), simplified = True)
+        mu = viscosity( T / Constant(1 * K) , P / Constant(1 * Pa), simplified = True)
+        kappa = conductivity( T / Constant(1 * K), P / Constant(1 * Pa), simplified = True)
+        cp = heat_capacity( T / Constant(1 * K), P / Constant(1 * Pa), simplified = True)
 
         prandtl = cp * mu / kappa
-        nusselt = (self.fD(x) / 8.) * (self.Re(x) - 1000.) * prandtl / (
-                1. + 12.7 * Sqrt(self.fD(x) / 8.) * (prandtl ** (2 / 3)) - 1.)
-        hint = nusselt * kappa * Constant(1 * (K ** (-1))*(W ** (1))*(m ** (-1))) / self.D(x)
-
-        eq.Residual = self.hint(x) - hint
+        nusselt = (fD / 8.) * (Re - 1000.) * prandtl / (
+                1. + 12.7 * Sqrt(fD / 8.) * (prandtl ** (2 / 3)) - 1.)
+        eq.Residual = hint - nusselt * kappa * Constant(1 * (K ** (-1))*(W ** (1))*(m ** (-1))) / D
 
 
     def eq_calculate_resistance(self):
 
         eq = self.CreateEquation("TotalResistance", "Heat balance - Resistance")
-        x = eq.DistributeOnDomain(self.x, eClosedClosed)
-        Resint = 1 / (self.pi * self.D(x) * self.hint(x))
-        Reswall = Log(self.Do() / self.Di()) / (2 * self.pi * self.kwall())
+        domains = distribute_on_domains(self.Domains, eq, eClosedClosed)
+
+        hint = daeVariable_wrapper(self.hint, domains)
+        D = daeVariable_wrapper(self.D, domains)
+        Resistance = daeVariable_wrapper(self.Resistance, domains)
+
+        Resint = 1 / (self.pi * D * hint) # mK/W
+        Reswall = Log(self.Do() / self.Di()) / (2 * self.pi * self.kwall())  # mK/W
         # TODO - Lembrar de colocar o Refilme no caso com Biofilme
         #Resfilm = Log(self.Di() / self.D()) / (2 * self.pi * self.kappa())
-        eq.Residual = self.Resistance(x) - (Resint + Reswall)
+        eq.Residual = Resistance - (Resint + Reswall)# + self.ResF() * self.pi * D) # mK/W
 
 
     def eq_total_he(self):
 
         eq = self.CreateEquation("TotalHeat", "Heat balance - Qout")
-        x = eq.DistributeOnDomain(self.x, eClosedClosed)
-        eq.Residual = self.Qout(x)*self.Resistance(x) - ( self.Text() - self.T(x))
+        domains = distribute_on_domains(self.Domains, eq, eClosedClosed)
+        T = daeVariable_wrapper(self.T, domains)
+        To = daeVariable_wrapper(self.To, domains)
+        Qout = daeVariable_wrapper(self.Qout, domains)
+        hint = daeVariable_wrapper(self.hint, domains)
+        D = daeVariable_wrapper(self.D, domains)
 
+        Resint = 1 / (self.pi * D * hint) # mK/W
+        Reswall = Log(self.Do() / self.Di()) / (2 * self.pi * self.kwall())  # mK/W
+        # TODO - Lembrar de colocar o Refilme no caso com Biofilme
+        #Resfilm = Log(self.Di() / self.D()) / (2 * self.pi * self.kappa())
+        Resistance = (Resint + Reswall + self.ResF() * self.pi * D) # mK/W
 
-    def eq_calculate_To(self):
-
-        eq = self.CreateEquation("WallHeat", "Heat balance - wall")
-        x = eq.DistributeOnDomain(self.x, eClosedClosed)
-        eq.Residual = self.To(x) - self.Text()
+        eq.Residual = Qout * Resistance - ( To - T)
 
 
     def eq_calculate_Ti(self):
 
         eq = self.CreateEquation("WallHeat", "Heat balance - wall")
-        x = eq.DistributeOnDomain(self.x, eClosedClosed)
+        domains = distribute_on_domains(self.Domains, eq, eClosedClosed)
+        Qout = daeVariable_wrapper(self.Qout, domains)
+        To = daeVariable_wrapper(self.To, domains)
+        Ti = daeVariable_wrapper(self.Ti, domains)
         Reswall = Log(self.Do() / self.Di()) / (2 * self.pi * self.kwall())
-        eq.Residual = self.Qout(x) - (self.To(x) - self.Ti(x) ) / Reswall
+        eq.Residual = Qout - (To - Ti ) / Reswall
 
 
     def DeclareEquations(self):
-
-        daeModelExtended.DeclareEquations(self)
-
-        self.eq_calculate_To()
         self.eq_calculate_Ti()
         self.eq_calculate_hint()
-        self.eq_calculate_resistance()
+        #self.eq_calculate_resistance()
+        #self.eq_total_he()

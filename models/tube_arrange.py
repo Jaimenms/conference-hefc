@@ -31,13 +31,11 @@ try:
 except:
     from .pipe import Pipe
 
-from water_properties import density, viscosity, conductivity, heat_capacity
-
 
 class TubeArrange(Pipe):
 
-    def __init__(self, Name, Parent=None, Description="", data={}, node_tree={}):
-        Pipe.__init__(self, Name, Parent=Parent, Description=Description, data=data, node_tree=node_tree)
+    def __init__(self, Name, Parent=None, Description=""):
+        Pipe.__init__(self, Name, Parent=Parent, Description=Description)
 
     def define_domains(self):
         Pipe.define_domains(self)

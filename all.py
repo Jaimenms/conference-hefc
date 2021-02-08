@@ -30,7 +30,7 @@ cases = [
 
     {'input': "cases/3/scenario_shortterm/model_complete/bc_wfixed/preparation.json"},
 
-    {'input': "cases/3/scenario_shortterm/model_complete/bc_pump/preparation.json"},
+    ##{'input': "cases/3/scenario_shortterm/model_complete/bc_pump/preparation.json"},
 
     #{'input': "cases/3/scenario_shortterm/model_simplified/bc_pump/simulation.json",
     # "initial_condition": "cases/3/scenario_shortterm/model_simplified/bc_pump/preparation.output.json"},
@@ -38,11 +38,11 @@ cases = [
     #{'input': "cases/3/scenario_shortterm/model_complete/bc_wfixed/simulation.json",
     # "initial_condition": "cases/3/scenario_shortterm/model_complete/bc_wfixed/preparation.output.json"},
 
-    {'input': "cases/3/scenario_shortterm/model_complete/bc_pump/simulation.json",
-     "initial_condition": "cases/3/scenario_shortterm/model_complete/bc_pump/preparation.output.json"},
+    ##{'input': "cases/3/scenario_shortterm/model_complete/bc_pump/simulation.json",
+    ## "initial_condition": "cases/3/scenario_shortterm/model_complete/bc_pump/preparation.output.json"},
 
-    {'input': "cases/3/scenario_shortterm/model_complete/bc_pump/simulationwithoutbiofilm.json",
-     "initial_condition": "cases/3/scenario_shortterm/model_complete/bc_pump/preparation.output.json"},
+    ##{'input': "cases/3/scenario_shortterm/model_complete/bc_pump/simulationwithoutbiofilm.json",
+    ## "initial_condition": "cases/3/scenario_shortterm/model_complete/bc_pump/preparation.output.json"},
 
 ]
 
@@ -51,39 +51,41 @@ try:
 except:
     ind = range(0, len(cases))
 
-for i in ind:
+if __name__ == "__main__":
 
-    # Collecting case data
-    try:
-        case = cases[i]
-    except:
-        print("Case {} not found".format(i))
+    for i in ind:
 
-    # Running
-    print("Starting case {}".format(case))
+        # Collecting case data
+        try:
+            case = cases[i]
+        except:
+            print("Case {} not found".format(i))
 
-    # Completing data
-    if 'initial_condition' not in case:
-        case['initial_condition'] = ""
-    filename = case["input"]
-    directory = os.path.dirname(filename)
-    if case['initial_condition'] == -1:
-        initial_condition_file = os.path.join(directory, "preparation.output.json")
-        if os.path.isfile(initial_condition_file):
-            case['initial_condition'] = initial_condition_file
+        # Running
+        print("Starting case {}".format(case))
 
-    # Simulating
-    try:
-        simulate.main(
-            input=case['input'],
-            format='json',
-            initial_condition=case['initial_condition'],
-            output='',
-            name=''
-        )
-    except:
-        print("Not converged")
+        # Completing data
+        if 'initial_condition' not in case:
+            case['initial_condition'] = ""
+        filename = case["input"]
+        directory = os.path.dirname(filename)
+        if case['initial_condition'] == -1:
+            initial_condition_file = os.path.join(directory, "preparation.output.json")
+            if os.path.isfile(initial_condition_file):
+                case['initial_condition'] = initial_condition_file
 
-    print("End")
+        # Simulating
+        try:
+            simulate.main(
+                input=case['input'],
+                format='json',
+                initial_condition=case['initial_condition'],
+                output='',
+                name=''
+            )
+        except:
+            print("Not converged")
 
-    # end
+        print("End")
+
+        # end

@@ -20,7 +20,7 @@ from water_properties import heat_capacity
 
 class Sink(Node):
 
-    def __init__(self, Name, Parent=None, Description="", data={}, node_tree={}):
+    def __init__(self, Name, Parent=None, Description=""):
         """
         Model for the sink
         :param Name: name of the model
@@ -30,7 +30,7 @@ class Sink(Node):
         """
 
         # Instantiate the Node
-        Node.__init__(self, Name, Parent=Parent, Description=Description, data=data, node_tree=node_tree)
+        Node.__init__(self, Name, Parent=Parent, Description=Description)
 
 
     def eq_mass_balance(self):

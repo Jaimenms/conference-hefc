@@ -61,3 +61,7 @@ __pycache__
 
 *.simulation
 *.output.json
+
+.ipynb_checkpoints
+
+cases/

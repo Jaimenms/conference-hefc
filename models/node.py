@@ -7,15 +7,13 @@ DaetTools base node model to be extended by water sink and water source nodes:
 
 """
 
-from daetools.pyDAE import *
-from daetools_extended.daemodel_extended import daeModelExtended
-
 from pyUnits import m, kg, s, K, Pa, mol, J, W, rad
+from daetools.pyDAE import *
 
 
-class Node(daeModelExtended):
+class Node(daeModel):
 
-    def __init__(self, Name, Parent=None, Description="", data={}, node_tree={}):
+    def __init__(self, Name, Parent=None, Description=""):
         """
         Base Model for the nodal elements
         :param Name: name of the model
@@ -24,7 +22,7 @@ class Node(daeModelExtended):
         :param data: parameters and other required data
         """
 
-        daeModelExtended.__init__(self, Name, Parent, Description, data=data, node_tree=node_tree)
+        daeModel.__init__(self, Name, Parent, Description)
 
         # Getting variables
         self.define_variables()
@@ -40,14 +38,15 @@ class Node(daeModelExtended):
         """
 
         pressure_t = daeVariableType("pressure_t", (Pa ** (1)), 0.1e+5, 50.0e+5, 1.0e+5, 1e-05, eValueGT)
-        self.P = daeVariable("P", pressure_t, self)
+        #self.P = daeVariable("P", pressure_t, self)
+        self.P = daeVariable("P", pressure_t, self, "Node Pressure")
         self.P.Description = "Nodal Pressure"
 
         temperature_t = daeVariableType("temperature_t", (K ** (1)), 0, 400.0, 300, 0.01, eValueGT)
         self.T = daeVariable("T", temperature_t, self)
         self.T.Description = "Nodal Temperature"
 
-        mass_flowrate_t = daeVariableType("nodal_mass_flowrate_t", (kg ** (1)) * (s ** (-1)), 0., 200.0, 1.0, 1e-05, eValueGT)
+        mass_flowrate_t = daeVariableType("nodal_mass_flowrate_t", (kg ** (1)) * (s ** (-1)), 0., 10000.0, 1.0, 1e-05, eValueGT)
         self.w = daeVariable("w", mass_flowrate_t, self)
         self.w.Description = "Nodal Mass Flowrate"
 
@@ -70,8 +69,23 @@ class Node(daeModelExtended):
         This Methos is called by the DaeTools. Here is where all the equations are defined
         :return:
         """
+        daeModel.DeclareEquations(self)
 
-        daeModelExtended.DeclareEquations(self)
+    def get_inlet(self):
+        """
+        Get the list of all edges that gives fluid to the node
+        :return:
+        """
+        return self.Parent.nodes[self.name]['inlet']
+
+
+    def get_outlet(self):
+        """
+        Get the list of all edges that takes fluid from the node
+        :return:
+        """
+        return self.Parent.nodes[self.name]['outlet']
+
 
 
 

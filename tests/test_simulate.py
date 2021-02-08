@@ -1,7 +1,7 @@
 import unittest
 import json
 import os
-from simulate import execute
+from simulate import simulate
 
 class TestSimulate(unittest.TestCase):
 
@@ -152,11 +152,6 @@ class TestSimulate(unittest.TestCase):
                         "states": {},
                         "parameters": {
 
-                            "conc_H": 1e-7,
-                            "conc_Ca": 9.55,
-                            "pCO2": 0.0314/100*101325,
-                            "mfi": 1e-9,
-
                             "Di": 0.35559999999999997,
                             "tetha": 0.0,
                             "L": 50.0,
@@ -224,7 +219,7 @@ class TestSimulate(unittest.TestCase):
         if os.path.exists(output_filename):
             os.unlink(output_filename)
 
-        execute(args)
+        simulate(args)
 
         with open(output_filename) as f:
             output = json.load(f)

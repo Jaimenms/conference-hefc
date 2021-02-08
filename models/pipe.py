@@ -38,11 +38,12 @@ from daetools_extended.tools import daeVariable_wrapper, distribute_on_domains
 from scipy.constants import g as gravity
 from scipy.constants import pi
 
+
 class Pipe(Edge):
 
-    def __init__(self, Name, Parent=None, Description="", data={}, node_tree={}):
+    def __init__(self, Name, Parent=None, Description=""):
 
-        Edge.__init__(self, Name, Parent=Parent, Description=Description, data=data, node_tree=node_tree)
+        Edge.__init__(self, Name, Parent=Parent, Description=Description)
 
 
     def define_domains(self):
@@ -345,8 +346,7 @@ class Pipe(Edge):
 
         Area = 0.25 * 3.14 * D ** 2
 
-        #eq.Residual =  self.dt_day(rho * Area ) + d(k, self.x, eCFDM) / L
-        eq.Residual =  d(k, self.x, eCFDM) / L
+        eq.Residual =  self.dt_day(rho * Area ) + d(k, self.x, eCFDM) / L
 
 
     def eq_mommentum_balance(self):
@@ -376,9 +376,7 @@ class Pipe(Edge):
 
         A = 0.25 * 3.14 * D ** 2
 
-        #eq.Residual =  A * d(P, self.x, eCFDM) / L  +  A * DeltaP #+  A * rho * g * Sin(tetha)
         eq.Residual =  self.dt_day(A * rho * v) + d(k * v, self.x, eCFDM) / L + A * d(P, self.x, eCFDM) / L + A * DeltaP +  A * rho * g * Sin(tetha)
-        #eq.Residual =  self.dt_day(rho * A * v) + d(k * v, self.x, eCFDM) / L + d( A * P, self.x, eCFDM) / L  +  A * DeltaP +  A * rho * g * Sin(tetha)
 
 
     def eq_heat_balance(self):
@@ -426,6 +424,15 @@ class Pipe(Edge):
 
         eq.Residual = Qtotal - Integral(Qout)*L*Npipes
 
+
+    def dt_day(self,x):
+        """
+        New derivative in terms of day (Daetools dt considers time in seconds)
+        :param x:
+        :return:
+        """
+
+        return dt(x)/(24*3600)
 
     def DeclareEquations(self):
 

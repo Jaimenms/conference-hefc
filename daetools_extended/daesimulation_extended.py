@@ -13,7 +13,6 @@ from daetools.dae_plotter.data_receiver_io import pickleProcess
 class daeSimulationExtended(daeSimulation):
 
     def __init__(self, Name, Parent=None, Description="", data={}, node_tree = {}, set_reporting = True, reporting_interval = 100, time_horizon = 0):
-
         daeSimulation.__init__(self)
 
         class_ = get_module_class_from_data(data)
@@ -25,7 +24,6 @@ class daeSimulationExtended(daeSimulation):
             node_tree = get_node_tree(Name, data)
 
         self.m = class_(Name, Parent=Parent, Description=Description, data=data, node_tree=node_tree)
-
         self.m.SetReportingOn(set_reporting)
 
         if set_reporting:
@@ -37,7 +35,7 @@ class daeSimulationExtended(daeSimulation):
 
     def SetUpVariables(self):
 
-        self.InitialConditionMode = eQuasiSteadyState
+        #self.InitialConditionMode = eQuasiSteadyState
 
         execute_recursive_method(self.m,'setup_active_states')
         execute_recursive_method(self.m,'setup_variables')

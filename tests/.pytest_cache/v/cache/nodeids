@@ -1,3 +1,5 @@
 [
-  "test_simulate.py::TestSimulate::test_02"
+  "test_simulate.py::TestSimulate::test_01",
+  "test_simulate.py::TestSimulate::test_02",
+  "test_tutorial1.py::TestTutorial1::test_run"
 ]

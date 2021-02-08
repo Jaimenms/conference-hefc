@@ -218,7 +218,8 @@ class daeModelExtended(daeModel):
 
                 # Get Shape of Domain
                 expected_shape = []
-                for domain in getattr(self, name).Domains:
+                obj = getattr(self, name)
+                for domain in obj.Domains:
                     expected_shape.append(domain.NumberOfPoints)
 
                 if isinstance(values, collections.Iterable):
@@ -277,6 +278,7 @@ class daeModelExtended(daeModel):
         Get the list of all edges that gives fluid to the node
         :return:
         """
+        if 'inlet' not in self.data: return []
         return self.data['inlet']
 
 
@@ -285,7 +287,7 @@ class daeModelExtended(daeModel):
         Get the list of all edges that takes fluid from the node
         :return:
         """
-
+        if 'outlet' not in self.data: return []
         return self.data['outlet']
 
 

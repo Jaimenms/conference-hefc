@@ -20,7 +20,7 @@ from water_properties import heat_capacity
 
 class Source(Node):
 
-    def __init__(self, Name, Parent=None, Description="", data={}, node_tree={}):
+    def __init__(self, Name, Parent=None, Description=""):
         """
         Model for the source
         :param Name: name of the model
@@ -30,7 +30,7 @@ class Source(Node):
         """
 
         # Instantiate the Node
-        Node.__init__(self, Name, Parent=Parent, Description=Description, data=data, node_tree=node_tree)
+        Node.__init__(self, Name, Parent=Parent, Description=Description)
 
 
     def eq_mass_balance(self):
@@ -39,18 +39,15 @@ class Source(Node):
         :return:
         """
 
-        print("--------"+self.Name)
         # Starting with the external mass flow rate
         residual_aux = self.w()
 
         # Mass to the node inlet
         for edge_name in self.get_inlet():
-            print("INLET: "+edge_name)
             residual_aux += self.Parent.submodels[edge_name].kub()
 
         # Mass to the node outlet
         for edge_name in self.get_outlet():
-            print("OUTLET: "+edge_name)
             residual_aux -= self.Parent.submodels[edge_name].klb()
 
         # Instantiate equation NMB

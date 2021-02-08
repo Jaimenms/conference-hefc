@@ -1,4 +1,6 @@
 {
   "test_simulate.py": true,
-  "test_simulate.py::TestSimulate::test_02": true
+  "test_simulate.py::TestSimulate::test_01": true,
+  "test_simulate.py::TestSimulate::test_02": true,
+  "test_tutorial1.py": true
 }

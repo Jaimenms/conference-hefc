@@ -3,13 +3,12 @@ DaetTools base edge model to be extended by pipe and others:
 """
 
 from daetools.pyDAE import *
-from daetools_extended.daemodel_extended import daeModelExtended
 from pyUnits import m, kg, s, K, Pa, mol, J, W, rad
 
 
-class Edge(daeModelExtended):
+class Edge(daeModel):
 
-    def __init__(self, Name, Parent=None, Description="", data={}, node_tree={}):
+    def __init__(self, Name, Parent=None, Description="",):
         """
         Model for the edge elements
         :param Name: name of the model
@@ -18,7 +17,7 @@ class Edge(daeModelExtended):
         :param data: parameters and other required data
         """
 
-        daeModelExtended.__init__(self, Name, Parent, Description, data=data, node_tree=node_tree)
+        daeModel.__init__(self, Name, Parent, Description,)
 
         # Domains
         self.define_domains()
@@ -109,4 +108,36 @@ class Edge(daeModelExtended):
         :return:
         """
 
-        daeModelExtended.DeclareEquations(self)
+        daeModel.DeclareEquations(self)
+
+
+    def get_node(self, position):
+        """
+        Get the node acoording to the position of the edge (from or to)
+        :param position:
+        :return:
+        """
+
+        if position == 'from':
+            return self.get_from()
+        elif position == 'to':
+            return self.get_to()
+        else:
+            return None
+
+    def get_from(self):
+        """
+        Get the node from which the fluid enters the edge
+        :return:
+        """
+
+        return self.data['from']
+
+
+    def get_to(self):
+        """
+        Get the node which the fluid goes
+        :return:
+        """
+
+        return self.data['to']
