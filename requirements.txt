@@ -5,7 +5,7 @@ asteval==0.9.21
 async-generator==1.10
 attrs==20.3.0
 backcall==0.2.0
-bleach==3.2.3
+bleach==3.3.0
 cached-property==1.5.2
 cffi==1.14.4
 configobj==5.0.6
