@@ -65,3 +65,4 @@ __pycache__
 .ipynb_checkpoints
 
 cases/
+.pytest_cache

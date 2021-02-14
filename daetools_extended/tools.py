@@ -222,6 +222,6 @@ def merge_initial_condition(args, data):
                     var_fullname = "{0}.{1}".format(model_name, var_name)
                     if var_fullname in previous_output:
                         if "Values" in previous_output[var_fullname]:
-                            data_i['initial_guess'][var_name] = previous_output[var_fullname]["Values"][-1]
+                            data_i['initial_guess'][var_name] = previous_output[var_fullname]["Values"][0]
 
     return data

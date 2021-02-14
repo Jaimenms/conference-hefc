@@ -1,0 +1,1195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="dae-tools.xsl"?>
+<Model ID="140201232621056" Class="daeModel" Library="DAE.Core" Version="1.8.1">
+  <Name><![CDATA[colesoncove]]></Name>
+  <Description><![CDATA[]]></Description>
+  <Domains/>
+  <Parameters/>
+  <Variables/>
+  <Ports/>
+  <EventPorts/>
+  <Equations/>
+  <OnEventActions/>
+  <OnConditionActions/>
+  <STNs/>
+  <PortConnections/>
+  <EventPortConnections/>
+  <Components>
+    <Object ID="140201233020416" Class="daeModel" Library="DAE.Core" Version="1.8.1">
+      <Name><![CDATA[node_A]]></Name>
+      <Description><![CDATA[node_A with models.source.Source]]></Description>
+      <Domains/>
+      <Parameters>
+        <Object ID="140200115757832" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[x]]></Name>
+          <Description><![CDATA[x Coordinate]]></Description>
+          <Units>
+            <m>1</m>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115758760" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[y]]></Name>
+          <Description><![CDATA[x Coordinate]]></Description>
+          <Units>
+            <m>1</m>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115759048" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[z]]></Name>
+          <Description><![CDATA[x Coordinate]]></Description>
+          <Units>
+            <m>1</m>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115759336" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Pext]]></Name>
+          <Description><![CDATA[Pressure of external source]]></Description>
+          <Units>
+            <Pa>1</Pa>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115759800" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Text]]></Name>
+          <Description><![CDATA[Temperature of external source]]></Description>
+          <Units>
+            <K>1</K>
+          </Units>
+          <DomainRefs/>
+        </Object>
+      </Parameters>
+      <Variables>
+        <Object ID="140200115756504" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[P]]></Name>
+          <Description><![CDATA[Nodal Pressure]]></Description>
+          <VariableType>pressure_t</VariableType>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115757272" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[T]]></Name>
+          <Description><![CDATA[Nodal Temperature]]></Description>
+          <VariableType>temperature_t</VariableType>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115758472" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[w]]></Name>
+          <Description><![CDATA[Nodal Mass Flowrate]]></Description>
+          <VariableType>nodal_mass_flowrate_t</VariableType>
+          <DomainRefs/>
+        </Object>
+      </Variables>
+      <Ports/>
+      <EventPorts/>
+      <Equations>
+        <Object ID="140200892773960" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[NMB_nodal_mass_balance]]></Name>
+          <Description><![CDATA[]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { w }  - { colesoncove.pipe_1.klb } }  = 0$$</Residual>
+          <DistributedDomainInfos/>
+        </Object>
+        <Object ID="140200114056040" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[NEB_source_energy_balance_2]]></Name>
+          <Description><![CDATA[]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ \left( { \left( { \left( { { w }  \cdot { Text } }  \right)  \cdot {4193.079257 {}}}  \right)  \cdot {1 {{J}{K ^ {-1}}{kg ^ {-1}}}}}  \right)  - { colesoncove.pipe_1.Hlb } }  = 0$$</Residual>
+          <DistributedDomainInfos/>
+        </Object>
+      </Equations>
+      <OnEventActions/>
+      <OnConditionActions/>
+      <STNs/>
+      <PortConnections/>
+      <EventPortConnections/>
+      <Components/>
+      <ComponentsArrays/>
+      <PortArrays/>
+    </Object>
+    <Object ID="140201232926208" Class="daeModel" Library="DAE.Core" Version="1.8.1">
+      <Name><![CDATA[pipe_1]]></Name>
+      <Description><![CDATA[pipe_1 with models.pipe.Pipe]]></Description>
+      <Domains>
+        <Object ID="140200656941664" Class="daeDomain" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[x]]></Name>
+          <Description><![CDATA[X axis domain]]></Description>
+          <Type>eStructuredGrid</Type>
+          <Units/>
+        </Object>
+      </Domains>
+      <Parameters>
+        <Object ID="140200115762008" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[tetha]]></Name>
+          <Description><![CDATA[Angle]]></Description>
+          <Units>
+            <rad>1</rad>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115762392" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Di]]></Name>
+          <Description><![CDATA[Inside pipe diameter]]></Description>
+          <Units>
+            <m>1</m>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115762824" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[L]]></Name>
+          <Description><![CDATA[Length]]></Description>
+          <Units>
+            <m>1</m>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115763192" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[epw]]></Name>
+          <Description><![CDATA[Wall Roughness]]></Description>
+          <Units>
+            <m>1</m>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115763656" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Kub]]></Name>
+          <Description><![CDATA[Upper bound concentrated accident coefficient]]></Description>
+          <Units/>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115764088" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Klb]]></Name>
+          <Description><![CDATA[Lower bound concentrated accident coefficient]]></Description>
+          <Units/>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115764472" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Npipes]]></Name>
+          <Description><![CDATA[Number of pipes]]></Description>
+          <Units/>
+          <DomainRefs/>
+        </Object>
+      </Parameters>
+      <Variables>
+        <Object ID="140200115766440" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[H]]></Name>
+          <Description><![CDATA[Fluid Entalphy]]></Description>
+          <VariableType>power_t</VariableType>
+          <DomainRefs>
+            <ObjectRef ID="140200656941664"><![CDATA[x]]></ObjectRef>
+          </DomainRefs>
+        </Object>
+        <Object ID="140200115767048" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[fD]]></Name>
+          <Description><![CDATA[Darcy friction factor]]></Description>
+          <VariableType>darcy_t</VariableType>
+          <DomainRefs>
+            <ObjectRef ID="140200656941664"><![CDATA[x]]></ObjectRef>
+          </DomainRefs>
+        </Object>
+        <Object ID="140200115767656" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[D]]></Name>
+          <Description><![CDATA[Internal flow diameter]]></Description>
+          <VariableType>diameter_t</VariableType>
+          <DomainRefs>
+            <ObjectRef ID="140200656941664"><![CDATA[x]]></ObjectRef>
+          </DomainRefs>
+        </Object>
+        <Object ID="140200115768264" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[v]]></Name>
+          <Description><![CDATA[Internal flow velocity]]></Description>
+          <VariableType>velocity_t</VariableType>
+          <DomainRefs>
+            <ObjectRef ID="140200656941664"><![CDATA[x]]></ObjectRef>
+          </DomainRefs>
+        </Object>
+        <Object ID="140200115768904" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Qout]]></Name>
+          <Description><![CDATA[Heat source per length]]></Description>
+          <VariableType>heat_per_length_t</VariableType>
+          <DomainRefs>
+            <ObjectRef ID="140200656941664"><![CDATA[x]]></ObjectRef>
+          </DomainRefs>
+        </Object>
+        <Object ID="140200115769976" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Qtotal]]></Name>
+          <Description><![CDATA[Exchanged energy per time per tube]]></Description>
+          <VariableType>power_t</VariableType>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115770808" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[P]]></Name>
+          <Description><![CDATA[Fluid Pressure]]></Description>
+          <VariableType>pressure_t</VariableType>
+          <DomainRefs>
+            <ObjectRef ID="140200656941664"><![CDATA[x]]></ObjectRef>
+          </DomainRefs>
+        </Object>
+        <Object ID="140200115771480" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[T]]></Name>
+          <Description><![CDATA[Fluid Temperature]]></Description>
+          <VariableType>water_temperature_t</VariableType>
+          <DomainRefs>
+            <ObjectRef ID="140200656941664"><![CDATA[x]]></ObjectRef>
+          </DomainRefs>
+        </Object>
+        <Object ID="140200115772152" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[k]]></Name>
+          <Description><![CDATA[Mass flowrate]]></Description>
+          <VariableType>mass_flowrate_t</VariableType>
+          <DomainRefs>
+            <ObjectRef ID="140200656941664"><![CDATA[x]]></ObjectRef>
+          </DomainRefs>
+        </Object>
+        <Object ID="140200115773000" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[klb]]></Name>
+          <Description><![CDATA[Lower Bound Mass flowrate]]></Description>
+          <VariableType>mass_flowrate_t</VariableType>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115773848" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[kub]]></Name>
+          <Description><![CDATA[Upper Bound Mass flowrate]]></Description>
+          <VariableType>mass_flowrate_t</VariableType>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115774632" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Hub]]></Name>
+          <Description><![CDATA[Upper Bound Fluid Enthalpy]]></Description>
+          <VariableType>power_t</VariableType>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115775336" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Hlb]]></Name>
+          <Description><![CDATA[Lower Bound Fluid Enthalpy]]></Description>
+          <VariableType>power_t</VariableType>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115776104" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[dPlb]]></Name>
+          <Description><![CDATA[Lower Bound Concentrated Pressure Loss]]></Description>
+          <VariableType>delta_pressure_t</VariableType>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115777000" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[dPub]]></Name>
+          <Description><![CDATA[Upper Bound Concentrated Pressure Loss]]></Description>
+          <VariableType>delta_pressure_t</VariableType>
+          <DomainRefs/>
+        </Object>
+      </Variables>
+      <Ports/>
+      <EventPorts/>
+      <Equations>
+        <Object ID="140200114056520" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[fDturb]]></Name>
+          <Description><![CDATA[Turbulent darcy factor]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { fD \left( { x } \right) }  - \left( { {4 {}} \cdot \left( { {2 {}} \cdot \left( { \left( { \left( { \left( { \frac{{8 {}}}{\left( { \frac{\left( { \left( { { D \left( { x } \right) }  \cdot  { \left| { v \left( { x } \right) }  \right| } }  \right)  \cdot \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {734.932166 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.00114904e-06 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03284845e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.00946864 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.57558559e-08 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {6.55299865e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.00379375187 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.41680119e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03916779e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{kg}{m ^ {-3}}}}}  \right) }  \right) }{\left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {0.0264395831 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-5.33641016e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {4.29013822e-19 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.000149875404 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.2298976e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-2.65882055e-21 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.15632416e-07 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-4.85829663e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {4.11084517e-24 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{Pa}{s}}}}  \right) }}  \right) }}  \right)  ^ {12 {}}}  \right)  + \left( { \left( { \left( { \left( { {2.457 {}} \cdot \ln \left( { \left( { \left( { \left( { \frac{{7 {}}}{\left( { \frac{\left( { \left( { { D \left( { x } \right) }  \cdot  { \left| { v \left( { x } \right) }  \right| } }  \right)  \cdot \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {734.932166 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.00114904e-06 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03284845e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.00946864 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.57558559e-08 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {6.55299865e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.00379375187 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.41680119e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03916779e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{kg}{m ^ {-3}}}}}  \right) }  \right) }{\left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {0.0264395831 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-5.33641016e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {4.29013822e-19 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.000149875404 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.2298976e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-2.65882055e-21 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.15632416e-07 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-4.85829663e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {4.11084517e-24 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{Pa}{s}}}}  \right) }}  \right) }}  \right)  ^ {0.9 {}}}  \right)  + \left( { \frac{\left( { {0.27 {}} \cdot { epw } }  \right) }{{ D \left( { x } \right) } }}  \right) }  \right)  ^ {-1 {}}}  \right) }  \right)  ^ {16 {}}}  \right)  + \left( { \left( { \frac{{37530 {}}}{\left( { \frac{\left( { \left( { { D \left( { x } \right) }  \cdot  { \left| { v \left( { x } \right) }  \right| } }  \right)  \cdot \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {734.932166 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.00114904e-06 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03284845e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.00946864 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.57558559e-08 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {6.55299865e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.00379375187 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.41680119e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03916779e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{kg}{m ^ {-3}}}}}  \right) }  \right) }{\left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {0.0264395831 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-5.33641016e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {4.29013822e-19 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.000149875404 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.2298976e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-2.65882055e-21 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.15632416e-07 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-4.85829663e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {4.11084517e-24 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{Pa}{s}}}}  \right) }}  \right) }}  \right)  ^ {16 {}}}  \right) }  \right)  ^ {-1.5 {}}}  \right) }  \right)  ^ {0.08333333333 {}}}  \right) }  \right) }  \right) }  = 0; {\forall { x }  \in \left[ { x } _{0}, { x } _{n} \right] }$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140200114056728" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941664"><![CDATA[x]]></Domain>
+              <Type>eClosedClosed</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140200114078056" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[BC_P_P_node_A]]></Name>
+          <Description><![CDATA[]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ \left( { { P \left( { x } \right) }  - \left( { {-1 {}} \cdot { dPlb } }  \right) }  \right)  - { colesoncove.node_A.P } }  = 0; {{ x }  = { x } _{0}}$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140200114078264" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941664"><![CDATA[x]]></Domain>
+              <Type>eLowerBound</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140200114079320" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[BC_P_P_node_B]]></Name>
+          <Description><![CDATA[]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ \left( { { P \left( { x } \right) }  - \left( { {1 {}} \cdot { dPub } }  \right) }  \right)  - { colesoncove.node_B.P } }  = 0; {{ x }  = { x } _{n}}$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140200114079768" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941664"><![CDATA[x]]></Domain>
+              <Type>eUpperBound</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140200114080696" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[BC_T_T_node_A]]></Name>
+          <Description><![CDATA[]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { T \left( { x } \right) }  - { colesoncove.node_A.T } }  = 0; {{ x }  = { x } _{0}}$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140200114081144" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941664"><![CDATA[x]]></Domain>
+              <Type>eLowerBound</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140200114081624" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[D]]></Name>
+          <Description><![CDATA[D_internal_flow_diameter]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { D \left( { x } \right) }  - { Di } }  = 0; {\forall { x }  \in \left[ { x } _{0}, { x } _{n} \right] }$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140200114082072" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941664"><![CDATA[x]]></Domain>
+              <Type>eClosedClosed</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140200114082456" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[v]]></Name>
+          <Description><![CDATA[v_fluid_velocity]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { v \left( { x } \right) }  - \left( { \frac{{ k \left( { x } \right) } }{\left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {734.932166 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.00114904e-06 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03284845e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.00946864 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.57558559e-08 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {6.55299865e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.00379375187 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.41680119e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03916779e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{kg}{m ^ {-3}}}}}  \right)  \cdot \left( { {0.785 {}} \cdot \left( { { D \left( { x } \right) }  ^ {2 {}}}  \right) }  \right) }  \right) }}  \right) }  = 0; {\forall { x }  \in \left[ { x } _{0}, { x } _{n} \right] }$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140200114082904" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941664"><![CDATA[x]]></Domain>
+              <Type>eClosedClosed</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140200114092952" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[MassBal]]></Name>
+          <Description><![CDATA[Mass balance]]></Description>
+          <EquationType>eImplicitODE</EquationType>
+          <Residual>$${ \left( { { \partial { { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {734.932166 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.00114904e-06 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03284845e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.00946864 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.57558559e-08 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {6.55299865e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.00379375187 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.41680119e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03916779e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{kg}{m ^ {-3}}}}}  \right)  \cdot \left( { {0.785 {}} \cdot \left( { { D \left( { x } \right) }  ^ {2 {}}}  \right) }  \right) }  \right) }  } } \over { \partial { t  } } }  \right)  + \left( { \frac{\left( { { \partial { { \left( { k \left( { x } \right) }  \right) } } } \over { \partial {x} } }  \right) }{{ L } }}  \right) }  = 0; {\forall { x }  \in \left( { x } _{0}, { x } _{n} \right] }$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140200114093160" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941664"><![CDATA[x]]></Domain>
+              <Type>eOpenClosed</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140200114103624" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[MomBal]]></Name>
+          <Description><![CDATA[Momentum balance]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ \left( { \left( { \left( { \frac{\left( { { \partial { { \left( { { k \left( { x } \right) }  \cdot { v \left( { x } \right) } }  \right) } } } \over { \partial {x} } }  \right) }{{ L } }}  \right)  + \left( { \frac{\left( { \left( { {0.785 {}} \cdot \left( { { D \left( { x } \right) }  ^ {2 {}}}  \right) }  \right)  \cdot \left( { { \partial { { \left( { P \left( { x } \right) }  \right) } } } \over { \partial {x} } }  \right) }  \right) }{{ L } }}  \right) }  \right)  + \left( { \left( { {0.785 {}} \cdot \left( { { D \left( { x } \right) }  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { {9.80665 {{m}{s ^ {-2}}}} \cdot \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {734.932166 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.00114904e-06 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03284845e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.00946864 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.57558559e-08 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {6.55299865e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.00379375187 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.41680119e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03916779e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{kg}{m ^ {-3}}}}}  \right) }  \right)  \cdot \left( { \frac{\left( { \left( { {0.5 {}} \cdot { fD \left( { x } \right) } }  \right)  \cdot \left( { { v \left( { x } \right) }  ^ {2 {}}}  \right) }  \right) }{\left( { { D \left( { x } \right) }  \cdot {9.80665 {{m}{s ^ {-2}}}}}  \right) }}  \right) }  \right) }  \right) }  \right)  + \left( { \left( { \left( { \left( { {0.785 {}} \cdot \left( { { D \left( { x } \right) }  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {734.932166 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.00114904e-06 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03284845e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.00946864 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.57558559e-08 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {6.55299865e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.00379375187 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.41680119e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03916779e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{kg}{m ^ {-3}}}}}  \right) }  \right)  \cdot {9.80665 {{m}{s ^ {-2}}}}}  \right)  \cdot \sin \left( { tetha }  \right) }  \right) }  = 0; {\forall { x }  \in \left( { x } _{0}, { x } _{n} \right] }$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140200114104072" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941664"><![CDATA[x]]></Domain>
+              <Type>eOpenClosed</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140200114116136" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Entalphy]]></Name>
+          <Description><![CDATA[Fluid Entalphy]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ \left( { \left( { { k \left( { x } \right) }  \cdot \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {5666.85353 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-6.55474142e-05 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.26388806e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-9.38832563 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.7687035e-07 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {9.99815092e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {0.0148029878 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-5.60190728e-10 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.79692966e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{J}{K ^ {-1}}{kg ^ {-1}}}}}  \right) }  \right)  \cdot { T \left( { x } \right) } }  \right)  - { H \left( { x } \right) } }  = 0; {\forall { x }  \in \left[ { x } _{0}, { x } _{n} \right] }$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140200114116344" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941664"><![CDATA[x]]></Domain>
+              <Type>eClosedClosed</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140200114126216" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[HeatBal]]></Name>
+          <Description><![CDATA[Heat balance - T]]></Description>
+          <EquationType>eImplicitODE</EquationType>
+          <Residual>$${ \left( { \left( { { \partial { { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {734.932166 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.00114904e-06 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03284845e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.00946864 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.57558559e-08 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {6.55299865e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.00379375187 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.41680119e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03916779e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{kg}{m ^ {-3}}}}}  \right)  \cdot \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {5666.85353 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-6.55474142e-05 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.26388806e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-9.38832563 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.7687035e-07 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {9.99815092e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {0.0148029878 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-5.60190728e-10 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.79692966e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{J}{K ^ {-1}}{kg ^ {-1}}}}}  \right) }  \right)  \cdot \left( { {0.785 {}} \cdot \left( { { D \left( { x } \right) }  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot { T \left( { x } \right) } }  \right) }  } } \over { \partial { t  } } }  \right)  + \left( { \frac{\left( { { \partial { { \left( { \left( { { k \left( { x } \right) }  \cdot \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {5666.85353 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-6.55474142e-05 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.26388806e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-9.38832563 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.7687035e-07 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {9.99815092e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {0.0148029878 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-5.60190728e-10 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.79692966e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{J}{K ^ {-1}}{kg ^ {-1}}}}}  \right) }  \right)  \cdot { T \left( { x } \right) } }  \right) } } } \over { \partial {x} } }  \right) }{{ L } }}  \right) }  \right)  - { Qout \left( { x } \right) } }  = 0; {\forall { x }  \in \left( { x } _{0}, { x } _{n} \right] }$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140200114126664" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941664"><![CDATA[x]]></Domain>
+              <Type>eOpenClosed</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140199296272696" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[TotalHeat]]></Name>
+          <Description><![CDATA[Heat balance - Qout]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ Qout \left( { x } \right) }  = 0; {\forall { x }  \in \left[ { x } _{0}, { x } _{n} \right] }$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140199296273144" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941664"><![CDATA[x]]></Domain>
+              <Type>eClosedClosed</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140199296273416" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[UpperBoundLowrate]]></Name>
+          <Description><![CDATA[Upper Bound Flowrate]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { kub }  - \left( { { k \left( { -1 } \right) }  \cdot { Npipes } }  \right) }  = 0$$</Residual>
+          <DistributedDomainInfos/>
+        </Object>
+        <Object ID="140199296274232" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[LowerBoundFlowrate]]></Name>
+          <Description><![CDATA[Lower Bound Flowrate]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { klb }  - \left( { { k \left( { 0 } \right) }  \cdot { Npipes } }  \right) }  = 0$$</Residual>
+          <DistributedDomainInfos/>
+        </Object>
+        <Object ID="140199296275064" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[UpperBoundEnthalpy]]></Name>
+          <Description><![CDATA[Upper Bound Enthalpy]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { Hub }  - \left( { { H \left( { -1 } \right) }  \cdot { Npipes } }  \right) }  = 0$$</Residual>
+          <DistributedDomainInfos/>
+        </Object>
+        <Object ID="140199296275976" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[LowerBoundEnthalpy]]></Name>
+          <Description><![CDATA[Lower Bound Enthalpy]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { Hlb }  - \left( { { H \left( { 0 } \right) }  \cdot { Npipes } }  \right) }  = 0$$</Residual>
+          <DistributedDomainInfos/>
+        </Object>
+        <Object ID="140199296276824" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[UpperBoundPressureLoss]]></Name>
+          <Description><![CDATA[Upper Bound Pressure Loss]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { dPub }  - \left( { \left( { \left( { {0.5 {}} \cdot { Kub } }  \right)  \cdot \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {734.932166 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.00114904e-06 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03284845e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.00946864 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.57558559e-08 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {6.55299865e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.00379375187 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.41680119e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03916779e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{kg}{m ^ {-3}}}}}  \right) }  \right)  \cdot \left( { { v \left( { x } \right) }  ^ {2 {}}}  \right) }  \right) }  = 0; {{ x }  = { x } _{n}}$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140199296277400" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941664"><![CDATA[x]]></Domain>
+              <Type>eUpperBound</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140199296287240" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[LowerBoundPressureLoss]]></Name>
+          <Description><![CDATA[Lower Bound Pressure Loss]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { dPlb }  - \left( { \left( { \left( { {0.5 {}} \cdot { Klb } }  \right)  \cdot \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {734.932166 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.00114904e-06 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03284845e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.00946864 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.57558559e-08 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {6.55299865e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.00379375187 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.41680119e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03916779e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{kg}{m ^ {-3}}}}}  \right) }  \right)  \cdot \left( { { v \left( { x } \right) }  ^ {2 {}}}  \right) }  \right) }  = 0; {{ x }  = { x } _{0}}$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140199296287688" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941664"><![CDATA[x]]></Domain>
+              <Type>eLowerBound</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140199296297528" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[TotalQ]]></Name>
+          <Description><![CDATA[TotalQ]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { Qtotal }  - \left( { \left( { \left( \int { { Qout.array \left( { * } \right) }  \mathrm{d}x }  \right)  \cdot { L } }  \right)  \cdot { Npipes } }  \right) }  = 0$$</Residual>
+          <DistributedDomainInfos/>
+        </Object>
+      </Equations>
+      <OnEventActions/>
+      <OnConditionActions/>
+      <STNs/>
+      <PortConnections/>
+      <EventPortConnections/>
+      <Components/>
+      <ComponentsArrays/>
+      <PortArrays/>
+    </Object>
+    <Object ID="140201232883200" Class="daeModel" Library="DAE.Core" Version="1.8.1">
+      <Name><![CDATA[node_B]]></Name>
+      <Description><![CDATA[node_B with models.sink.Sink]]></Description>
+      <Domains/>
+      <Parameters>
+        <Object ID="140200115780424" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[x]]></Name>
+          <Description><![CDATA[x Coordinate]]></Description>
+          <Units>
+            <m>1</m>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115780712" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[y]]></Name>
+          <Description><![CDATA[x Coordinate]]></Description>
+          <Units>
+            <m>1</m>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115781000" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[z]]></Name>
+          <Description><![CDATA[x Coordinate]]></Description>
+          <Units>
+            <m>1</m>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115781288" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Pext]]></Name>
+          <Description><![CDATA[Pressure of external source]]></Description>
+          <Units>
+            <Pa>1</Pa>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115781576" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Text]]></Name>
+          <Description><![CDATA[Temperature of external source]]></Description>
+          <Units>
+            <K>1</K>
+          </Units>
+          <DomainRefs/>
+        </Object>
+      </Parameters>
+      <Variables>
+        <Object ID="140200115778840" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[P]]></Name>
+          <Description><![CDATA[Nodal Pressure]]></Description>
+          <VariableType>pressure_t</VariableType>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115779448" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[T]]></Name>
+          <Description><![CDATA[Nodal Temperature]]></Description>
+          <VariableType>temperature_t</VariableType>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115780136" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[w]]></Name>
+          <Description><![CDATA[Nodal Mass Flowrate]]></Description>
+          <VariableType>nodal_mass_flowrate_t</VariableType>
+          <DomainRefs/>
+        </Object>
+      </Variables>
+      <Ports/>
+      <EventPorts/>
+      <Equations>
+        <Object ID="140199296299048" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[NMB_nodal_mass_balance]]></Name>
+          <Description><![CDATA[]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ \left( { \left( - { w }  \right) }  \right)  + { colesoncove.pipe_1.kub } }  = 0$$</Residual>
+          <DistributedDomainInfos/>
+        </Object>
+        <Object ID="140199296308872" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[NEB_nodal_energy_balance_2]]></Name>
+          <Description><![CDATA[]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ \left( { \left( { \left( { \left( { \left( - { w }  \right) }  \right)  \cdot { T } }  \right)  \cdot \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {5666.85353 {}} \cdot \left( { \left( { \frac{{ T } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-6.55474142e-05 {}} \cdot \left( { \left( { \frac{{ T } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.26388806e-13 {}} \cdot \left( { \left( { \frac{{ T } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-9.38832563 {}} \cdot \left( { \left( { \frac{{ T } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.7687035e-07 {}} \cdot \left( { \left( { \frac{{ T } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {9.99815092e-16 {}} \cdot \left( { \left( { \frac{{ T } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {0.0148029878 {}} \cdot \left( { \left( { \frac{{ T } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-5.60190728e-10 {}} \cdot \left( { \left( { \frac{{ T } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.79692966e-18 {}} \cdot \left( { \left( { \frac{{ T } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right) }  \right)  \cdot {1 {{J}{K ^ {-1}}{kg ^ {-1}}}}}  \right)  + { colesoncove.pipe_1.Hub } }  = 0$$</Residual>
+          <DistributedDomainInfos/>
+        </Object>
+      </Equations>
+      <OnEventActions/>
+      <OnConditionActions/>
+      <STNs/>
+      <PortConnections/>
+      <EventPortConnections/>
+      <Components/>
+      <ComponentsArrays/>
+      <PortArrays/>
+    </Object>
+    <Object ID="140201232884736" Class="daeModel" Library="DAE.Core" Version="1.8.1">
+      <Name><![CDATA[node_C]]></Name>
+      <Description><![CDATA[node_C with models.source.Source]]></Description>
+      <Domains/>
+      <Parameters>
+        <Object ID="140200115785720" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[x]]></Name>
+          <Description><![CDATA[x Coordinate]]></Description>
+          <Units>
+            <m>1</m>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115786008" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[y]]></Name>
+          <Description><![CDATA[x Coordinate]]></Description>
+          <Units>
+            <m>1</m>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115786296" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[z]]></Name>
+          <Description><![CDATA[x Coordinate]]></Description>
+          <Units>
+            <m>1</m>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115786584" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Pext]]></Name>
+          <Description><![CDATA[Pressure of external source]]></Description>
+          <Units>
+            <Pa>1</Pa>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115786872" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Text]]></Name>
+          <Description><![CDATA[Temperature of external source]]></Description>
+          <Units>
+            <K>1</K>
+          </Units>
+          <DomainRefs/>
+        </Object>
+      </Parameters>
+      <Variables>
+        <Object ID="140200115783576" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[P]]></Name>
+          <Description><![CDATA[Nodal Pressure]]></Description>
+          <VariableType>pressure_t</VariableType>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115784344" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[T]]></Name>
+          <Description><![CDATA[Nodal Temperature]]></Description>
+          <VariableType>temperature_t</VariableType>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115785432" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[w]]></Name>
+          <Description><![CDATA[Nodal Mass Flowrate]]></Description>
+          <VariableType>nodal_mass_flowrate_t</VariableType>
+          <DomainRefs/>
+        </Object>
+      </Variables>
+      <Ports/>
+      <EventPorts/>
+      <Equations>
+        <Object ID="140199296309304" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[NMB_nodal_mass_balance]]></Name>
+          <Description><![CDATA[]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { w }  - { colesoncove.pipe_2.klb } }  = 0$$</Residual>
+          <DistributedDomainInfos/>
+        </Object>
+        <Object ID="140199296310840" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[NEB_source_energy_balance_2]]></Name>
+          <Description><![CDATA[]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ \left( { \left( { \left( { { w }  \cdot { Text } }  \right)  \cdot {4181.7896 {}}}  \right)  \cdot {1 {{J}{K ^ {-1}}{kg ^ {-1}}}}}  \right)  - { colesoncove.pipe_2.Hlb } }  = 0$$</Residual>
+          <DistributedDomainInfos/>
+        </Object>
+      </Equations>
+      <OnEventActions/>
+      <OnConditionActions/>
+      <STNs/>
+      <PortConnections/>
+      <EventPortConnections/>
+      <Components/>
+      <ComponentsArrays/>
+      <PortArrays/>
+    </Object>
+    <Object ID="140201232939008" Class="daeModel" Library="DAE.Core" Version="1.8.1">
+      <Name><![CDATA[pipe_2]]></Name>
+      <Description><![CDATA[pipe_2 with models.pipe.Pipe]]></Description>
+      <Domains>
+        <Object ID="140200656941968" Class="daeDomain" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[x]]></Name>
+          <Description><![CDATA[X axis domain]]></Description>
+          <Type>eStructuredGrid</Type>
+          <Units/>
+        </Object>
+      </Domains>
+      <Parameters>
+        <Object ID="140200115788920" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[tetha]]></Name>
+          <Description><![CDATA[Angle]]></Description>
+          <Units>
+            <rad>1</rad>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115789304" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Di]]></Name>
+          <Description><![CDATA[Inside pipe diameter]]></Description>
+          <Units>
+            <m>1</m>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200115789736" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[L]]></Name>
+          <Description><![CDATA[Length]]></Description>
+          <Units>
+            <m>1</m>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200117373784" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[epw]]></Name>
+          <Description><![CDATA[Wall Roughness]]></Description>
+          <Units>
+            <m>1</m>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200117374072" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Kub]]></Name>
+          <Description><![CDATA[Upper bound concentrated accident coefficient]]></Description>
+          <Units/>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200117374456" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Klb]]></Name>
+          <Description><![CDATA[Lower bound concentrated accident coefficient]]></Description>
+          <Units/>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200117374840" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Npipes]]></Name>
+          <Description><![CDATA[Number of pipes]]></Description>
+          <Units/>
+          <DomainRefs/>
+        </Object>
+      </Parameters>
+      <Variables>
+        <Object ID="140200117376792" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[H]]></Name>
+          <Description><![CDATA[Fluid Entalphy]]></Description>
+          <VariableType>power_t</VariableType>
+          <DomainRefs>
+            <ObjectRef ID="140200656941968"><![CDATA[x]]></ObjectRef>
+          </DomainRefs>
+        </Object>
+        <Object ID="140200117377400" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[fD]]></Name>
+          <Description><![CDATA[Darcy friction factor]]></Description>
+          <VariableType>darcy_t</VariableType>
+          <DomainRefs>
+            <ObjectRef ID="140200656941968"><![CDATA[x]]></ObjectRef>
+          </DomainRefs>
+        </Object>
+        <Object ID="140200117378008" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[D]]></Name>
+          <Description><![CDATA[Internal flow diameter]]></Description>
+          <VariableType>diameter_t</VariableType>
+          <DomainRefs>
+            <ObjectRef ID="140200656941968"><![CDATA[x]]></ObjectRef>
+          </DomainRefs>
+        </Object>
+        <Object ID="140200117378616" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[v]]></Name>
+          <Description><![CDATA[Internal flow velocity]]></Description>
+          <VariableType>velocity_t</VariableType>
+          <DomainRefs>
+            <ObjectRef ID="140200656941968"><![CDATA[x]]></ObjectRef>
+          </DomainRefs>
+        </Object>
+        <Object ID="140200117379256" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Qout]]></Name>
+          <Description><![CDATA[Heat source per length]]></Description>
+          <VariableType>heat_per_length_t</VariableType>
+          <DomainRefs>
+            <ObjectRef ID="140200656941968"><![CDATA[x]]></ObjectRef>
+          </DomainRefs>
+        </Object>
+        <Object ID="140200117380232" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Qtotal]]></Name>
+          <Description><![CDATA[Exchanged energy per time per tube]]></Description>
+          <VariableType>power_t</VariableType>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200117381064" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[P]]></Name>
+          <Description><![CDATA[Fluid Pressure]]></Description>
+          <VariableType>pressure_t</VariableType>
+          <DomainRefs>
+            <ObjectRef ID="140200656941968"><![CDATA[x]]></ObjectRef>
+          </DomainRefs>
+        </Object>
+        <Object ID="140200117381736" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[T]]></Name>
+          <Description><![CDATA[Fluid Temperature]]></Description>
+          <VariableType>water_temperature_t</VariableType>
+          <DomainRefs>
+            <ObjectRef ID="140200656941968"><![CDATA[x]]></ObjectRef>
+          </DomainRefs>
+        </Object>
+        <Object ID="140200117382488" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[k]]></Name>
+          <Description><![CDATA[Mass flowrate]]></Description>
+          <VariableType>mass_flowrate_t</VariableType>
+          <DomainRefs>
+            <ObjectRef ID="140200656941968"><![CDATA[x]]></ObjectRef>
+          </DomainRefs>
+        </Object>
+        <Object ID="140200117383336" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[klb]]></Name>
+          <Description><![CDATA[Lower Bound Mass flowrate]]></Description>
+          <VariableType>mass_flowrate_t</VariableType>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200117384184" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[kub]]></Name>
+          <Description><![CDATA[Upper Bound Mass flowrate]]></Description>
+          <VariableType>mass_flowrate_t</VariableType>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200117384968" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Hub]]></Name>
+          <Description><![CDATA[Upper Bound Fluid Enthalpy]]></Description>
+          <VariableType>power_t</VariableType>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200117385672" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Hlb]]></Name>
+          <Description><![CDATA[Lower Bound Fluid Enthalpy]]></Description>
+          <VariableType>power_t</VariableType>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200117386440" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[dPlb]]></Name>
+          <Description><![CDATA[Lower Bound Concentrated Pressure Loss]]></Description>
+          <VariableType>delta_pressure_t</VariableType>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200117387336" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[dPub]]></Name>
+          <Description><![CDATA[Upper Bound Concentrated Pressure Loss]]></Description>
+          <VariableType>delta_pressure_t</VariableType>
+          <DomainRefs/>
+        </Object>
+      </Variables>
+      <Ports/>
+      <EventPorts/>
+      <Equations>
+        <Object ID="140199296311320" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[fDturb]]></Name>
+          <Description><![CDATA[Turbulent darcy factor]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { fD \left( { x } \right) }  - \left( { {4 {}} \cdot \left( { {2 {}} \cdot \left( { \left( { \left( { \left( { \frac{{8 {}}}{\left( { \frac{\left( { \left( { { D \left( { x } \right) }  \cdot  { \left| { v \left( { x } \right) }  \right| } }  \right)  \cdot \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {734.932166 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.00114904e-06 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03284845e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.00946864 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.57558559e-08 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {6.55299865e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.00379375187 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.41680119e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03916779e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{kg}{m ^ {-3}}}}}  \right) }  \right) }{\left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {0.0264395831 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-5.33641016e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {4.29013822e-19 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.000149875404 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.2298976e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-2.65882055e-21 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.15632416e-07 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-4.85829663e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {4.11084517e-24 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{Pa}{s}}}}  \right) }}  \right) }}  \right)  ^ {12 {}}}  \right)  + \left( { \left( { \left( { \left( { {2.457 {}} \cdot \ln \left( { \left( { \left( { \left( { \frac{{7 {}}}{\left( { \frac{\left( { \left( { { D \left( { x } \right) }  \cdot  { \left| { v \left( { x } \right) }  \right| } }  \right)  \cdot \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {734.932166 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.00114904e-06 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03284845e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.00946864 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.57558559e-08 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {6.55299865e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.00379375187 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.41680119e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03916779e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{kg}{m ^ {-3}}}}}  \right) }  \right) }{\left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {0.0264395831 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-5.33641016e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {4.29013822e-19 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.000149875404 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.2298976e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-2.65882055e-21 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.15632416e-07 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-4.85829663e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {4.11084517e-24 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{Pa}{s}}}}  \right) }}  \right) }}  \right)  ^ {0.9 {}}}  \right)  + \left( { \frac{\left( { {0.27 {}} \cdot { epw } }  \right) }{{ D \left( { x } \right) } }}  \right) }  \right)  ^ {-1 {}}}  \right) }  \right)  ^ {16 {}}}  \right)  + \left( { \left( { \frac{{37530 {}}}{\left( { \frac{\left( { \left( { { D \left( { x } \right) }  \cdot  { \left| { v \left( { x } \right) }  \right| } }  \right)  \cdot \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {734.932166 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.00114904e-06 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03284845e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.00946864 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.57558559e-08 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {6.55299865e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.00379375187 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.41680119e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03916779e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{kg}{m ^ {-3}}}}}  \right) }  \right) }{\left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {0.0264395831 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-5.33641016e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {4.29013822e-19 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.000149875404 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.2298976e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-2.65882055e-21 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.15632416e-07 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-4.85829663e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {4.11084517e-24 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{Pa}{s}}}}  \right) }}  \right) }}  \right)  ^ {16 {}}}  \right) }  \right)  ^ {-1.5 {}}}  \right) }  \right)  ^ {0.08333333333 {}}}  \right) }  \right) }  \right) }  = 0; {\forall { x }  \in \left[ { x } _{0}, { x } _{n} \right] }$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140199296311528" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941968"><![CDATA[x]]></Domain>
+              <Type>eClosedClosed</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140199296332856" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[BC_P_P_node_C]]></Name>
+          <Description><![CDATA[]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ \left( { { P \left( { x } \right) }  - \left( { {-1 {}} \cdot { dPlb } }  \right) }  \right)  - { colesoncove.node_C.P } }  = 0; {{ x }  = { x } _{0}}$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140199296333064" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941968"><![CDATA[x]]></Domain>
+              <Type>eLowerBound</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140199296334120" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[BC_P_P_node_D]]></Name>
+          <Description><![CDATA[]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ \left( { { P \left( { x } \right) }  - \left( { {1 {}} \cdot { dPub } }  \right) }  \right)  - { colesoncove.node_D.P } }  = 0; {{ x }  = { x } _{n}}$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140199296334568" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941968"><![CDATA[x]]></Domain>
+              <Type>eUpperBound</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140199296335496" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[BC_T_T_node_C]]></Name>
+          <Description><![CDATA[]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { T \left( { x } \right) }  - { colesoncove.node_C.T } }  = 0; {{ x }  = { x } _{0}}$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140199296335944" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941968"><![CDATA[x]]></Domain>
+              <Type>eLowerBound</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140199296336424" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[D]]></Name>
+          <Description><![CDATA[D_internal_flow_diameter]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { D \left( { x } \right) }  - { Di } }  = 0; {\forall { x }  \in \left[ { x } _{0}, { x } _{n} \right] }$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140199296336872" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941968"><![CDATA[x]]></Domain>
+              <Type>eClosedClosed</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140199296337256" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[v]]></Name>
+          <Description><![CDATA[v_fluid_velocity]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { v \left( { x } \right) }  - \left( { \frac{{ k \left( { x } \right) } }{\left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {734.932166 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.00114904e-06 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03284845e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.00946864 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.57558559e-08 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {6.55299865e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.00379375187 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.41680119e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03916779e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{kg}{m ^ {-3}}}}}  \right)  \cdot \left( { {0.785 {}} \cdot \left( { { D \left( { x } \right) }  ^ {2 {}}}  \right) }  \right) }  \right) }}  \right) }  = 0; {\forall { x }  \in \left[ { x } _{0}, { x } _{n} \right] }$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140199296337704" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941968"><![CDATA[x]]></Domain>
+              <Type>eClosedClosed</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140199296347752" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[MassBal]]></Name>
+          <Description><![CDATA[Mass balance]]></Description>
+          <EquationType>eImplicitODE</EquationType>
+          <Residual>$${ \left( { { \partial { { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {734.932166 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.00114904e-06 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03284845e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.00946864 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.57558559e-08 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {6.55299865e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.00379375187 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.41680119e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03916779e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{kg}{m ^ {-3}}}}}  \right)  \cdot \left( { {0.785 {}} \cdot \left( { { D \left( { x } \right) }  ^ {2 {}}}  \right) }  \right) }  \right) }  } } \over { \partial { t  } } }  \right)  + \left( { \frac{\left( { { \partial { { \left( { k \left( { x } \right) }  \right) } } } \over { \partial {x} } }  \right) }{{ L } }}  \right) }  = 0; {\forall { x }  \in \left( { x } _{0}, { x } _{n} \right] }$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140199296347960" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941968"><![CDATA[x]]></Domain>
+              <Type>eOpenClosed</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140200116287992" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[MomBal]]></Name>
+          <Description><![CDATA[Momentum balance]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ \left( { \left( { \left( { \frac{\left( { { \partial { { \left( { { k \left( { x } \right) }  \cdot { v \left( { x } \right) } }  \right) } } } \over { \partial {x} } }  \right) }{{ L } }}  \right)  + \left( { \frac{\left( { \left( { {0.785 {}} \cdot \left( { { D \left( { x } \right) }  ^ {2 {}}}  \right) }  \right)  \cdot \left( { { \partial { { \left( { P \left( { x } \right) }  \right) } } } \over { \partial {x} } }  \right) }  \right) }{{ L } }}  \right) }  \right)  + \left( { \left( { {0.785 {}} \cdot \left( { { D \left( { x } \right) }  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { {9.80665 {{m}{s ^ {-2}}}} \cdot \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {734.932166 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.00114904e-06 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03284845e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.00946864 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.57558559e-08 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {6.55299865e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.00379375187 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.41680119e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03916779e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{kg}{m ^ {-3}}}}}  \right) }  \right)  \cdot \left( { \frac{\left( { \left( { {0.5 {}} \cdot { fD \left( { x } \right) } }  \right)  \cdot \left( { { v \left( { x } \right) }  ^ {2 {}}}  \right) }  \right) }{\left( { { D \left( { x } \right) }  \cdot {9.80665 {{m}{s ^ {-2}}}}}  \right) }}  \right) }  \right) }  \right) }  \right)  + \left( { \left( { \left( { \left( { {0.785 {}} \cdot \left( { { D \left( { x } \right) }  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {734.932166 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.00114904e-06 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03284845e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.00946864 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.57558559e-08 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {6.55299865e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.00379375187 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.41680119e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03916779e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{kg}{m ^ {-3}}}}}  \right) }  \right)  \cdot {9.80665 {{m}{s ^ {-2}}}}}  \right)  \cdot \sin \left( { tetha }  \right) }  \right) }  = 0; {\forall { x }  \in \left( { x } _{0}, { x } _{n} \right] }$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140200116288440" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941968"><![CDATA[x]]></Domain>
+              <Type>eOpenClosed</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140200116300552" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Entalphy]]></Name>
+          <Description><![CDATA[Fluid Entalphy]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ \left( { \left( { { k \left( { x } \right) }  \cdot \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {5666.85353 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-6.55474142e-05 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.26388806e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-9.38832563 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.7687035e-07 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {9.99815092e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {0.0148029878 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-5.60190728e-10 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.79692966e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{J}{K ^ {-1}}{kg ^ {-1}}}}}  \right) }  \right)  \cdot { T \left( { x } \right) } }  \right)  - { H \left( { x } \right) } }  = 0; {\forall { x }  \in \left[ { x } _{0}, { x } _{n} \right] }$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140200116300760" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941968"><![CDATA[x]]></Domain>
+              <Type>eClosedClosed</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140200116310632" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[HeatBal]]></Name>
+          <Description><![CDATA[Heat balance - T]]></Description>
+          <EquationType>eImplicitODE</EquationType>
+          <Residual>$${ \left( { \left( { { \partial { { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {734.932166 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.00114904e-06 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03284845e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.00946864 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.57558559e-08 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {6.55299865e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.00379375187 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.41680119e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03916779e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{kg}{m ^ {-3}}}}}  \right)  \cdot \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {5666.85353 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-6.55474142e-05 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.26388806e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-9.38832563 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.7687035e-07 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {9.99815092e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {0.0148029878 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-5.60190728e-10 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.79692966e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{J}{K ^ {-1}}{kg ^ {-1}}}}}  \right) }  \right)  \cdot \left( { {0.785 {}} \cdot \left( { { D \left( { x } \right) }  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot { T \left( { x } \right) } }  \right) }  } } \over { \partial { t  } } }  \right)  + \left( { \frac{\left( { { \partial { { \left( { \left( { { k \left( { x } \right) }  \cdot \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {5666.85353 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-6.55474142e-05 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.26388806e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-9.38832563 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.7687035e-07 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {9.99815092e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {0.0148029878 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-5.60190728e-10 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.79692966e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{J}{K ^ {-1}}{kg ^ {-1}}}}}  \right) }  \right)  \cdot { T \left( { x } \right) } }  \right) } } } \over { \partial {x} } }  \right) }{{ L } }}  \right) }  \right)  - { Qout \left( { x } \right) } }  = 0; {\forall { x }  \in \left( { x } _{0}, { x } _{n} \right] }$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140200116311080" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941968"><![CDATA[x]]></Domain>
+              <Type>eOpenClosed</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140200116329880" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[TotalHeat]]></Name>
+          <Description><![CDATA[Heat balance - Qout]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ Qout \left( { x } \right) }  = 0; {\forall { x }  \in \left[ { x } _{0}, { x } _{n} \right] }$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140200116330328" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941968"><![CDATA[x]]></Domain>
+              <Type>eClosedClosed</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140200116330600" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[UpperBoundLowrate]]></Name>
+          <Description><![CDATA[Upper Bound Flowrate]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { kub }  - \left( { { k \left( { -1 } \right) }  \cdot { Npipes } }  \right) }  = 0$$</Residual>
+          <DistributedDomainInfos/>
+        </Object>
+        <Object ID="140200116331416" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[LowerBoundFlowrate]]></Name>
+          <Description><![CDATA[Lower Bound Flowrate]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { klb }  - \left( { { k \left( { 0 } \right) }  \cdot { Npipes } }  \right) }  = 0$$</Residual>
+          <DistributedDomainInfos/>
+        </Object>
+        <Object ID="140200116332248" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[UpperBoundEnthalpy]]></Name>
+          <Description><![CDATA[Upper Bound Enthalpy]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { Hub }  - \left( { { H \left( { -1 } \right) }  \cdot { Npipes } }  \right) }  = 0$$</Residual>
+          <DistributedDomainInfos/>
+        </Object>
+        <Object ID="140200116333160" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[LowerBoundEnthalpy]]></Name>
+          <Description><![CDATA[Lower Bound Enthalpy]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { Hlb }  - \left( { { H \left( { 0 } \right) }  \cdot { Npipes } }  \right) }  = 0$$</Residual>
+          <DistributedDomainInfos/>
+        </Object>
+        <Object ID="140200116334008" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[UpperBoundPressureLoss]]></Name>
+          <Description><![CDATA[Upper Bound Pressure Loss]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { dPub }  - \left( { \left( { \left( { {0.5 {}} \cdot { Kub } }  \right)  \cdot \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {734.932166 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.00114904e-06 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03284845e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.00946864 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.57558559e-08 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {6.55299865e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.00379375187 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.41680119e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03916779e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{kg}{m ^ {-3}}}}}  \right) }  \right)  \cdot \left( { { v \left( { x } \right) }  ^ {2 {}}}  \right) }  \right) }  = 0; {{ x }  = { x } _{n}}$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140200116334584" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941968"><![CDATA[x]]></Domain>
+              <Type>eUpperBound</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140200116344424" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[LowerBoundPressureLoss]]></Name>
+          <Description><![CDATA[Lower Bound Pressure Loss]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { dPlb }  - \left( { \left( { \left( { {0.5 {}} \cdot { Klb } }  \right)  \cdot \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {734.932166 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.00114904e-06 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03284845e-13 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.00946864 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.57558559e-08 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {6.55299865e-16 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-0.00379375187 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {2.41680119e-11 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.03916779e-18 {}} \cdot \left( { \left( { \frac{{ T \left( { x } \right) } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P \left( { x } \right) } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  \cdot {1 {{kg}{m ^ {-3}}}}}  \right) }  \right)  \cdot \left( { { v \left( { x } \right) }  ^ {2 {}}}  \right) }  \right) }  = 0; {{ x }  = { x } _{0}}$$</Residual>
+          <DistributedDomainInfos>
+            <Object ID="140200116344872" Class="daeDistributedEquationDomainInfo" Library="DAE.Core" Version="1.8.1">
+              <Name><![CDATA[x]]></Name>
+              <Description><![CDATA[]]></Description>
+              <Domain ID="140200656941968"><![CDATA[x]]></Domain>
+              <Type>eLowerBound</Type>
+            </Object>
+          </DistributedDomainInfos>
+        </Object>
+        <Object ID="140200116354712" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[TotalQ]]></Name>
+          <Description><![CDATA[TotalQ]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ { Qtotal }  - \left( { \left( { \left( \int { { Qout.array \left( { * } \right) }  \mathrm{d}x }  \right)  \cdot { L } }  \right)  \cdot { Npipes } }  \right) }  = 0$$</Residual>
+          <DistributedDomainInfos/>
+        </Object>
+      </Equations>
+      <OnEventActions/>
+      <OnConditionActions/>
+      <STNs/>
+      <PortConnections/>
+      <EventPortConnections/>
+      <Components/>
+      <ComponentsArrays/>
+      <PortArrays/>
+    </Object>
+    <Object ID="140201232940544" Class="daeModel" Library="DAE.Core" Version="1.8.1">
+      <Name><![CDATA[node_D]]></Name>
+      <Description><![CDATA[node_D with models.sink.Sink]]></Description>
+      <Domains/>
+      <Parameters>
+        <Object ID="140200117376184" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[x]]></Name>
+          <Description><![CDATA[x Coordinate]]></Description>
+          <Units>
+            <m>1</m>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200117388856" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[y]]></Name>
+          <Description><![CDATA[x Coordinate]]></Description>
+          <Units>
+            <m>1</m>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200117391192" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[z]]></Name>
+          <Description><![CDATA[x Coordinate]]></Description>
+          <Units>
+            <m>1</m>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200117391480" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Pext]]></Name>
+          <Description><![CDATA[Pressure of external source]]></Description>
+          <Units>
+            <Pa>1</Pa>
+          </Units>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200117391768" Class="daeParameter" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[Text]]></Name>
+          <Description><![CDATA[Temperature of external source]]></Description>
+          <Units>
+            <K>1</K>
+          </Units>
+          <DomainRefs/>
+        </Object>
+      </Parameters>
+      <Variables>
+        <Object ID="140200117389688" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[P]]></Name>
+          <Description><![CDATA[Nodal Pressure]]></Description>
+          <VariableType>pressure_t</VariableType>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200117390296" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[T]]></Name>
+          <Description><![CDATA[Nodal Temperature]]></Description>
+          <VariableType>temperature_t</VariableType>
+          <DomainRefs/>
+        </Object>
+        <Object ID="140200117390904" Class="daeVariable" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[w]]></Name>
+          <Description><![CDATA[Nodal Mass Flowrate]]></Description>
+          <VariableType>nodal_mass_flowrate_t</VariableType>
+          <DomainRefs/>
+        </Object>
+      </Variables>
+      <Ports/>
+      <EventPorts/>
+      <Equations>
+        <Object ID="140200116356232" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[NMB_nodal_mass_balance]]></Name>
+          <Description><![CDATA[]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ \left( { \left( - { w }  \right) }  \right)  + { colesoncove.pipe_2.kub } }  = 0$$</Residual>
+          <DistributedDomainInfos/>
+        </Object>
+        <Object ID="140200116366056" Class="daeEquation" Library="DAE.Core" Version="1.8.1">
+          <Name><![CDATA[NEB_nodal_energy_balance_2]]></Name>
+          <Description><![CDATA[]]></Description>
+          <EquationType>eAlgebraic</EquationType>
+          <Residual>$${ \left( { \left( { \left( { \left( { \left( - { w }  \right) }  \right)  \cdot { T } }  \right)  \cdot \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { \left( { {0 {}} + \left( { \left( { {5666.85353 {}} \cdot \left( { \left( { \frac{{ T } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-6.55474142e-05 {}} \cdot \left( { \left( { \frac{{ T } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.26388806e-13 {}} \cdot \left( { \left( { \frac{{ T } }{{1 {{K}}}}}  \right)  ^ {0 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-9.38832563 {}} \cdot \left( { \left( { \frac{{ T } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {3.7687035e-07 {}} \cdot \left( { \left( { \frac{{ T } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {9.99815092e-16 {}} \cdot \left( { \left( { \frac{{ T } }{{1 {{K}}}}}  \right)  ^ {1 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {0.0148029878 {}} \cdot \left( { \left( { \frac{{ T } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P } }{{1 {{Pa}}}}}  \right)  ^ {0 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-5.60190728e-10 {}} \cdot \left( { \left( { \frac{{ T } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P } }{{1 {{Pa}}}}}  \right)  ^ {1 {}}}  \right) }  \right) }  \right)  + \left( { \left( { {-1.79692966e-18 {}} \cdot \left( { \left( { \frac{{ T } }{{1 {{K}}}}}  \right)  ^ {2 {}}}  \right) }  \right)  \cdot \left( { \left( { \frac{{ P } }{{1 {{Pa}}}}}  \right)  ^ {2 {}}}  \right) }  \right) }  \right) }  \right)  \cdot {1 {{J}{K ^ {-1}}{kg ^ {-1}}}}}  \right)  + { colesoncove.pipe_2.Hub } }  = 0$$</Residual>
+          <DistributedDomainInfos/>
+        </Object>
+      </Equations>
+      <OnEventActions/>
+      <OnConditionActions/>
+      <STNs/>
+      <PortConnections/>
+      <EventPortConnections/>
+      <Components/>
+      <ComponentsArrays/>
+      <PortArrays/>
+    </Object>
+  </Components>
+  <ComponentsArrays/>
+  <PortArrays/>
+</Model>

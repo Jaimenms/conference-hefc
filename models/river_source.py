@@ -18,18 +18,16 @@ from water_properties import heat_capacity
 from scipy.constants import pi
 
 
-class RiverSource(daeModelExtended):
+try:
+    from models.source import Source
+except:
+    from .source import Source
 
-    def __init__(self, Name, Parent=None, Description="", data={}, node_tree={}):
-        """
-        Base Model for the nodal elements
-        :param Name: name of the model
-        :param Parent: parent model
-        :param Description: description of the model
-        :param data: parameters and other required data
-        """
 
-        daeModelExtended.__init__(self, Name, Parent, Description, data=data, node_tree=node_tree)
+class RiverSource(Source):
+
+    def __init__(self, Name, Parent=None, Description=""):
+        daeModel.__init__(self, Name, Parent, Description)
 
         self.pi = Constant( pi )
 
@@ -73,9 +71,6 @@ class RiverSource(daeModelExtended):
         self.z = daeParameter("z", m, self, "x Coordinate")
         self.Pext = daeParameter("Pext", (Pa), self, "Pressure of external source")
         self.Text0 = daeParameter("Text0", K, self, "Text0")
-        self.A = daeParameter("A", Pa/((kg/s)**2), self, "Pump coefficient A")
-        self.B = daeParameter("B", Pa/(kg/s), self, "Pump coefficient B")
-        self.C = daeParameter("C", Pa, self, "Pump coefficient C")
 
         self.alpha1 = daeParameter("alpha1", K, self, "alpha1")
         self.alpha2 = daeParameter("alpha2", K, self, "alpha2")
@@ -125,44 +120,10 @@ class RiverSource(daeModelExtended):
         eq = self.CreateEquation("NEB_source_energy_balance_2")
         eq.Residual = residual_aux
 
-
-    def eq_pump(self):
-        """
-        This method writes the pump curve
-        :return:
-        """
-
-        # Instantiate equation
-        eq = self.CreateEquation("pump_equation")
-        eq.Residual = self.P() - self.A() * self.w() ** 2 - self.B() * self.w() - self.C()
-
-
     def eq_river_temperature(self):
 
-        self.stnRiverTemperature = self.STN("RiverTemperature")
-
-        self.STATE("Fixed")
-
         eq = self.CreateEquation("river_temperature")
-        eq.Residual = self.Text() - self.Text0()
-
-        self.STATE("PreVariable")
-
-        eq = self.CreateEquation("river_temperature")
-        eq.Residual = self.Text() - self.Text0()
-
-        self.ON_CONDITION(Time() > Constant(0*s), switchToStates     = [ ('RiverTemperature', 'Variable') ],
-                                                      setVariableValues  = [],
-                                                      triggerEvents      = [],
-                                                      userDefinedActions = [] )
-
-
-        self.STATE("Variable")
-
-        eq = self.CreateEquation("river_temperature")
-        eq.Residual = self.Text() - (self.alpha1() + self.alpha2() * Sin(2*self.pi/Constant(365*s) * (Time() + self.tau())))
-
-        self.END_STN()
+        eq.Residual = self.Text() - (self.alpha1() + self.alpha2() * Sin(2*self.pi/Constant(365*s) * (Time()/(24*3600)  + self.tau())))
 
 
     def DeclareEquations(self):
@@ -174,5 +135,4 @@ class RiverSource(daeModelExtended):
         daeModelExtended.DeclareEquations(self)
         self.eq_mass_balance()
         self.eq_energy_balance()
-        self.eq_pump()
         self.eq_river_temperature()

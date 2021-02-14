@@ -4,21 +4,20 @@ DaetTools model that describes the behavior of a water flowing in a pipe with th
 
 
 from daetools.pyDAE import *
+import numpy as np
 
-from daetools_extended.daemodel_extended import daeModelExtended
-
-from daetools_extended.tools import get_node_tree, execute_recursive_method, get_initialdata_from_reporter, update_initialdata, daeVariable_wrapper, distribute_on_domains
+from daetools_extended.tools import daeVariable_wrapper, distribute_on_domains
 
 from pyUnits import m, kg, s, K, Pa, J, W, rad, mol
 
 from water_properties import conductivity, density, viscosity
 
 
-class Carbfilm(daeModelExtended):
+class Carbfilm(daeModel):
 
-    def __init__(self, Name, Parent=None, Description="", data={}, node_tree={}):
+    def __init__(self, Name, Parent=None, Description=""):
 
-        daeModelExtended.__init__(self, Name, Parent=Parent, Description=Description, data=data, node_tree=node_tree)
+        daeModel.__init__(self, Name, Parent=Parent, Description=Description)
 
         if not Parent:
             self.define_constants()
@@ -28,16 +27,12 @@ class Carbfilm(daeModelExtended):
     def define_constants(self):
 
         self.Rg = Constant(8.31 * J / (K * mol)) # Gas universal constant
-        self.cH = Constant(29.5) #CO2 Henry constant
         self.k1 = Constant(4.47e-7) # Calcium carbonate first order dissociation constant
         self.k2 = Constant(4.68e-11) # Calcium carbonate second order dissociation constant
         self.ksp = Constant(4.9e-9) # Calcium solubility product
-        self.kf = Constant(2.941 * (W ** (1)) * (m ** (-1)) * (K ** (-1))) # Film thermal conductivity
+        self.kf = Constant(2.19 * (W ** (1)) * (m ** (-1)) * (K ** (-1))) # Film thermal conductivity
         self.rhof = Constant(2.71e3 * (kg ** (1)) * (m ** (-3))) # Film density
         self.psi = Constant(0.01)  # Deposition strength factor
-        self.conc_H = Constant(10 ** (-9.55)) #Concentration of Hydrogen cation
-        self.conc_Ca = Constant(0.0037/3) #Calcium concentration
-        self.pCO2 = Constant(0.0314 / 100) #CO2 partial pressure
 
     def define_variables(self):
 
@@ -48,23 +43,31 @@ class Carbfilm(daeModelExtended):
                                                1e-3, 1e-9)
 
         self.mf = daeVariable("mf", mass_film_t, self, "Film Mass per Area", self.Domains)
-        self.phid = daeVariable("phip", rate_t, self, "Film specific deposit rate", self.Domains)
-        self.phir = daeVariable("phir", rate_t, self, "Film specific removal rate", self.Domains)
+        self.phid = daeVariable("phid", rate_t, self, "Film specific deposit rate", self.Domains) #per day
+        self.phir = daeVariable("phir", rate_t, self, "Film specific removal rate", self.Domains) #per day
         self.Rf = daeVariable("Rf", fouling_factor_t, self, "Fouling factor", self.Domains)
-
 
     def define_parameters(self):
 
-        lagt = self.data['constants']['lagt']
-
-        self.lagt = Constant(lagt*s)
-
+        self.pH =  daeParameter("pH", unit(), self, "pH")
+        self.Alc =  daeParameter("Alc", unit(), self, "pH")
+        self.Ca =  daeParameter("Ca", unit(), self, "pH")
         self.mfi = daeParameter("mfi", (kg ** (1)) * (m ** (-2)), self, "Initial film density")
-
 
     def eq_film(self):
 
-        self.IF(Time() < self.lagt, eventTolerance=1E-5)
+        self.stnFouling = self.STN("stnFouling")
+
+        self.STATE("Static")
+
+        eq = self.CreateEquation("FilmOFF", "Film - OFF")
+        domains = distribute_on_domains(self.Domains, eq, eClosedClosed)
+        mf = daeVariable_wrapper(self.mf, domains)
+        eq.Residual = mf - self.mfi()
+
+        self.STATE("Dynamic")
+
+        self.IF(Time() < 10.0 * Constant(1 * s), eventTolerance=1E-1)
 
         eq = self.CreateEquation("FilmOFF", "Film - OFF")
         domains = distribute_on_domains(self.Domains, eq, eClosedClosed)
@@ -81,9 +84,15 @@ class Carbfilm(daeModelExtended):
         phid = daeVariable_wrapper(self.phid, domains)
         phir = daeVariable_wrapper(self.phir, domains)
 
-        eq.Residual = self.dt_day(mf) - (phid - phir)
+        #sigmoidal = 1/(1+np.exp( 3 * ( 30 - Time() / Constant(1 * s)) )) - 1/(1+np.exp( 3 * (30 - 0.1 ) ))
+        #sigmoidal = 1 #FORCED
+
+        eq.Residual = self.dt(mf) - (phid - phir)
+        # eq.Residual = self.dt(mf) - sigmoidal * (phid - phir)
 
         self.END_IF()
+
+        self.END_STN()
 
 
     def eq_phid(self):
@@ -91,17 +100,12 @@ class Carbfilm(daeModelExtended):
         eq = self.CreateEquation("phid", "phid")
         domains = distribute_on_domains(self.Domains, eq, eClosedClosed)
 
-        k1 = self.k1
         k2 = self.k2
-        cH = self.cH
         ksp = self.ksp
-        pCO2 = self.pCO2
-        conc_H = self.conc_H
-        conc_Ca = self.conc_Ca
 
-        conc_CO2 = pCO2 / cH
-        conc_HCO3 = (conc_CO2 * k1) / conc_H
-        conc_CO3 = (conc_HCO3 * k2) / conc_H
+        conc_H = 10 ** (-self.pH())
+        conc_Ca = self.Ca()/1000/40.078
+        conc_CO3 = k2*self.Alc()/1000/(100.0869 * (conc_H + 2*k2))
 
         phid = daeVariable_wrapper(self.phid, domains)
         D = daeVariable_wrapper(self.D, domains)
@@ -128,10 +132,13 @@ class Carbfilm(daeModelExtended):
 
         kd = 0.023 * vast * Re ** -0.17 * Sc ** -0.67
 
+        # eq.Residual = phid - 24 * 3600 * Constant(1 * kg * m ** -2 * s ** -1) * kd * \
+        #               conc_CO3 * (1 - ksp / (conc_Ca * conc_CO3)) / \
+        #               (1 + kd / (kr * conc_CO3) + conc_CO3 / conc_Ca)
+
         eq.Residual = phid - Constant(1 * kg * m ** -2 * s ** -1) * kd * \
                       conc_CO3 * (1 - ksp / (conc_Ca * conc_CO3)) / \
                       (1 + kd / (kr * conc_CO3) + conc_CO3 / conc_Ca)
-
 
     def eq_phir(self):
 
@@ -141,7 +148,6 @@ class Carbfilm(daeModelExtended):
         phid = daeVariable_wrapper(self.phid, domains)
         D = daeVariable_wrapper(self.D, domains)
         v = daeVariable_wrapper(self.v, domains)
-
 
         kf = self.kf
         rhof = self.rhof
@@ -197,7 +203,7 @@ class Carbfilm(daeModelExtended):
 
     def DeclareEquations(self):
 
-        daeModelExtended.DeclareEquations(self)
+        daeModel.DeclareEquations(self)
 
         self.eq_film()
         self.eq_phid()

@@ -34,15 +34,11 @@ class CarbfilmedExternalFilmCondensationTubeArrange(Carbfilm, ExternalFilmConden
 
     def define_variables(self):
         ExternalFilmCondensationTubeArrange.define_variables(self)
-
         Carbfilm.define_variables(self)
-
 
     def define_parameters(self):
         ExternalFilmCondensationTubeArrange.define_parameters(self)
-
         Carbfilm.define_parameters(self)
-
 
     def eq_total_he(self):
 
@@ -66,7 +62,7 @@ class CarbfilmedExternalFilmCondensationTubeArrange(Carbfilm, ExternalFilmConden
         Resint = 1 / (pi * D * hint)
         Reswall = Log(Do / Di) / (2 * pi * kwall)
 
-        eq.Residual = Qout * (Resint + Reswall + Resext + Rf/(Di * pi)) - (Text - T )
+        eq.Residual = Qout * (Resint + Reswall + Resext + Rf/(Di * pi) + self.ResF() * self.L()) - (Text - T )
 
 
     def DeclareEquations(self):

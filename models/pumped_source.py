@@ -15,12 +15,11 @@ try:
 except:
     from .source import Source
 
-from water_properties import heat_capacity
 
 
 class PumpedSource(Source):
 
-    def __init__(self, Name, Parent=None, Description="", data={}, node_tree={}):
+    def __init__(self, Name, Parent=None, Description=""):
         """
         Model for the source
         :param Name: name of the model
@@ -30,28 +29,25 @@ class PumpedSource(Source):
         """
 
         # Instantiate the Node
-        Source.__init__(self, Name, Parent=Parent, Description=Description, data=data, node_tree=node_tree)
+        Source.__init__(self, Name, Parent=Parent, Description=Description)
 
 
     def define_parameters(self):
 
         Source.define_parameters(self)
 
-        self.a = daeParameter("a", Pa/(kg/s), self, "Pump a coefficient")
-        self.P0 = daeParameter("P0", Pa, self, "Pump pressure at reference")
-        self.w0 = daeParameter("w0", kg/s, self, "Pump flowrate at reference")
+        self.a0 = daeParameter("a0", Pa, self, "Pump a coefficient 0th order")
+        self.a1 = daeParameter("a1", Pa/(kg/s), self, "Pump a coefficient 1st order")
+        self.a2 = daeParameter("a2", Pa/(kg**2/s**2), self, "Pump a coefficient 2nd order")
 
 
-    def eq_momentum_balance(self):
+    def eq_pump_curve(self):
         """
         This method writes the pump curve
         :return:
         """
-
-        print("Pump equation!!!!!!!!!!")
-        # Instantiate equation
         eq = self.CreateEquation("pump_equation")
-        eq.Residual = self.P() - self.a() * self.w() - (self.P0() - self.a() * self.w0())
+        eq.Residual = self.P() - self.a0() - self.a1() * self.w() - self.a2() * self.w() ** 2
 
     def DeclareEquations(self):
         """
@@ -59,4 +55,5 @@ class PumpedSource(Source):
         :return:
         """
 
+        self.eq_pump_curve()
         Source.DeclareEquations(self)

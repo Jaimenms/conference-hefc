@@ -40,8 +40,6 @@ class FixedExternalTemperature(daeModelExtended):
 
         self.hint = daeVariable("hint", heat_transfer_coefficient_t, self, "Internal convection coefficient", self.Domains)
 
-        #self.Resistance = daeVariable("Resistance", thermal_resistance_t, self, "Overall Thermal Resistance", self.Domains)
-
 
     def eq_calculate_hint(self):
 
@@ -50,38 +48,25 @@ class FixedExternalTemperature(daeModelExtended):
 
         T = daeVariable_wrapper(self.T, domains)
         P = daeVariable_wrapper(self.P, domains)
-        Ti = daeVariable_wrapper(self.Ti, domains)
         fD = daeVariable_wrapper(self.fD, domains)
-        Re = daeVariable_wrapper(self.Re, domains)
         hint = daeVariable_wrapper(self.hint, domains)
         D = daeVariable_wrapper(self.D, domains)
-
+        v = daeVariable_wrapper(self.v, domains)
 
         # Calculates the Nussel dimensionless number using Petukhov correlation modified by Gnielinski. See Incropera 4th Edition [8.63]
         mu = viscosity( T / Constant(1 * K) , P / Constant(1 * Pa), simplified = True)
         kappa = conductivity( T / Constant(1 * K), P / Constant(1 * Pa), simplified = True)
         cp = heat_capacity( T / Constant(1 * K), P / Constant(1 * Pa), simplified = True)
+        rho = density( T / Constant(1 * K), P / Constant(1 * Pa), simplified = True)
 
+        Dast = D / Constant(1 * m )
+        vast = v / Constant(1 * m * s ** -1)
+
+        Re = Dast * Abs(vast) * rho / mu
         prandtl = cp * mu / kappa
         nusselt = (fD / 8.) * (Re - 1000.) * prandtl / (
                 1. + 12.7 * Sqrt(fD / 8.) * (prandtl ** (2 / 3)) - 1.)
-        eq.Residual = hint - nusselt * kappa * Constant(1 * (K ** (-1))*(W ** (1))*(m ** (-1))) / D
-
-
-    def eq_calculate_resistance(self):
-
-        eq = self.CreateEquation("TotalResistance", "Heat balance - Resistance")
-        domains = distribute_on_domains(self.Domains, eq, eClosedClosed)
-
-        hint = daeVariable_wrapper(self.hint, domains)
-        D = daeVariable_wrapper(self.D, domains)
-        Resistance = daeVariable_wrapper(self.Resistance, domains)
-
-        Resint = 1 / (self.pi * D * hint) # mK/W
-        Reswall = Log(self.Do() / self.Di()) / (2 * self.pi * self.kwall())  # mK/W
-        # TODO - Lembrar de colocar o Refilme no caso com Biofilme
-        #Resfilm = Log(self.Di() / self.D()) / (2 * self.pi * self.kappa())
-        eq.Residual = Resistance - (Resint + Reswall)# + self.ResF() * self.pi * D) # mK/W
+        eq.Residual = hint - nusselt * kappa / Dast * Constant(1 * W/(K * m**2))
 
 
     def eq_total_he(self):

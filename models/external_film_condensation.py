@@ -141,7 +141,8 @@ class ExternalFilmCondensation(daeModel):
         wext = self.wext()
         Past = Pext / Constant(1 * Pa)
         drhodPshell = vapour_total_compressibility(Past) * Constant(1 * kg * (m**-3) * (Pa**-1) )
-        eq.Residual =  self.dt_day(Pext)* (Vext * drhodPshell) - (kvap - wext - kcond)
+        #eq.Residual =  self.dt(Pext)* (Vext * drhodPshell) - 24 * 3600 * (kvap - wext - kcond)
+        eq.Residual =  self.dt(Pext)* (Vext * drhodPshell) - (kvap - wext - kcond)
 
         self.STATE("Constant")
         eq = self.CreateEquation("ExternalPressure", "ExternalPressure")
@@ -157,7 +158,6 @@ class ExternalFilmCondensation(daeModel):
         Past = Pext / Constant(1 * Pa)
         eq.Residual = self.Text() - saturation_temperature(Past, simplified=True) * Constant(1 * K)
 
-
     def eq_calculate_hint(self):
 
         eq = self.CreateEquation("InternalConvection", "Internal convection - hint")
@@ -166,24 +166,24 @@ class ExternalFilmCondensation(daeModel):
         T = daeVariable_wrapper(self.T, domains)
         P = daeVariable_wrapper(self.P, domains)
         fD = daeVariable_wrapper(self.fD, domains)
-        Re = daeVariable_wrapper(self.Re, domains)
         hint = daeVariable_wrapper(self.hint, domains)
         D = daeVariable_wrapper(self.D, domains)
+        v = daeVariable_wrapper(self.v, domains)
 
         # Calculates the Nussel dimensionless number using Petukhov correlation modified by Gnielinski. See Incropera 4th Edition [8.63]
-        Tast = T / Constant(1 * K)
-        Past = P / Constant(1 * Pa)
+        mu = viscosity( T / Constant(1 * K) , P / Constant(1 * Pa), simplified = True)
+        kappa = conductivity( T / Constant(1 * K), P / Constant(1 * Pa), simplified = True)
+        cp = heat_capacity( T / Constant(1 * K), P / Constant(1 * Pa), simplified = True)
+        rho = density( T / Constant(1 * K), P / Constant(1 * Pa), simplified = True)
 
-        mu = viscosity( Tast, Past, simplified = True)
-        kappa = conductivity( Tast, Past, simplified = True)
-        cp = heat_capacity( Tast, Past, simplified = True)
+        Dast = D / Constant(1 * m )
+        vast = v / Constant(1 * m * s ** -1)
+
+        Re = Dast * Abs(vast) * rho / mu
         prandtl = cp * mu / kappa
-        kappa_i = kappa * Constant(1 * (K ** (-1))*(W ** (1))*(m ** (-1)))
-
-        nusselt = (fD / 8.) * (Re - 1000.) * prandtl / (1. + 12.7 * Sqrt(fD / 8.) * (prandtl ** (2 / 3)) - 1.)
-        hint_calc = nusselt * kappa_i / D
-
-        eq.Residual = hint - hint_calc
+        nusselt = (fD / 8.) * (Re - 1000.) * prandtl / (
+                1. + 12.7 * Sqrt(fD / 8.) * (prandtl ** (2 / 3)) - 1.)
+        eq.Residual = hint - nusselt * kappa / Dast * Constant(1 * W/(K * m**2))
 
 
     def eq_calculate_hext(self):
@@ -223,23 +223,21 @@ class ExternalFilmCondensation(daeModel):
     def eq_total_he(self):
 
         eq = self.CreateEquation("TotalHeat", "Heat balance - Qout")
-        domains = distribute_on_domains(self.Domains, eq, eClosedClosed)
-
         Text = self.Text()
+        domains = distribute_on_domains(self.Domains, eq, eClosedClosed)
         T = daeVariable_wrapper(self.T, domains)
         Qout = daeVariable_wrapper(self.Qout, domains)
         hint = daeVariable_wrapper(self.hint, domains)
         hext = daeVariable_wrapper(self.hext, domains)
         D = daeVariable_wrapper(self.D, domains)
-        Resint = 1 / (self.pi * self.Di() * hint)
-        Reswall = Log(self.Do() / self.Di()) / (2 * self.pi * self.kwall())
+
+        Resint = 1 / (self.pi * D * hint) # mK/W
+        Reswall = Log(self.Do() / self.Di()) / (2 * self.pi * self.kwall())  # mK/W
+        #Resfilm = Log(self.Di() / D) / (2 * self.pi * self.kappa())
         Resext = 1 / (self.pi * self.Do() * hext)
-        ResFouling = self.ResF() * self.L() # Jaime - Corrigido!
-
-        Resistance = (Resint + Reswall + Resext + ResFouling)
-
-        eq.Residual = Qout * Resistance - (Text - T )
-
+        #Resistance = (Resext + Resint + Reswall + Resfilm + self.ResF() * self.L()) # mK/W
+        Resistance = (Resext + Resint + Reswall + self.ResF() * self.L()) # mK/W
+        eq.Residual = Qout * Resistance - ( Text - T )
 
     def eq_calculate_To(self):
 
