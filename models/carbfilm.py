@@ -67,7 +67,7 @@ class Carbfilm(daeModel):
 
         self.STATE("Dynamic")
 
-        self.IF(Time() < 10.0 * Constant(1 * s), eventTolerance=1E-1)
+        self.IF(Time() < 0.1 * Constant(1 * s), eventTolerance=1E-1)
 
         eq = self.CreateEquation("FilmOFF", "Film - OFF")
         domains = distribute_on_domains(self.Domains, eq, eClosedClosed)
